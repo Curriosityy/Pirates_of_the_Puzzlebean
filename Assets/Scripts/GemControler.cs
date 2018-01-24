@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class GemControler : MonoBehaviour
 {
+    //[HideInInspector]
     public List<GameObject> neighbors;
+
+    [HideInInspector]
+    private bool isSelected = false;
 
     private void Awake()
     {
@@ -23,7 +27,7 @@ public class GemControler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.isTrigger)
+        if (!collision.isTrigger && collision.gameObject.tag != "Table")
         {
             neighbors.Add(collision.gameObject);
         }
@@ -31,7 +35,7 @@ public class GemControler : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (!collision.isTrigger)
+        if (!collision.isTrigger && collision.gameObject.tag != "Table")
         {
             neighbors.Remove(collision.gameObject);
         }

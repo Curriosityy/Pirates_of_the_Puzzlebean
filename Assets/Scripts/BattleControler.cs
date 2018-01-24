@@ -29,6 +29,11 @@ public class BattleControler : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
+
     // Update is called once per frame
     private void Update()
     {
