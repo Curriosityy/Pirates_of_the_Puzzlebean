@@ -9,19 +9,19 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1953920736665122}
+  m_RootGameObject: {fileID: 1800674460653224}
   m_IsPrefabParent: 1
---- !u!1 &1953920736665122
+--- !u!1 &1800674460653224
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4760115299727136}
-  - component: {fileID: 20603149414557096}
-  - component: {fileID: 124019022468202620}
-  - component: {fileID: 81652885457980632}
+  - component: {fileID: 4089058303758298}
+  - component: {fileID: 20372464256301650}
+  - component: {fileID: 124068011597528990}
+  - component: {fileID: 81193971588055032}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -29,40 +29,40 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4760115299727136
+--- !u!4 &4089058303758298
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1953920736665122}
+  m_GameObject: {fileID: 1800674460653224}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 11.7, z: -10}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.25, y: 13.37, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &20603149414557096
+--- !u!20 &20372464256301650
 Camera:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1953920736665122}
+  m_GameObject: {fileID: 1800674460653224}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 3
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 4
-    height: 3
+    width: 16
+    height: 9
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 14
+  orthographic size: 10.887756
   m_Depth: 10
   m_CullingMask:
     serializedVersion: 2
@@ -78,17 +78,17 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &81652885457980632
+--- !u!81 &81193971588055032
 AudioListener:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1953920736665122}
+  m_GameObject: {fileID: 1800674460653224}
   m_Enabled: 1
---- !u!124 &124019022468202620
+--- !u!124 &124068011597528990
 Behaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1953920736665122}
+  m_GameObject: {fileID: 1800674460653224}
   m_Enabled: 1
