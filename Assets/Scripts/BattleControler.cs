@@ -23,18 +23,28 @@ public class BattleControler : MonoBehaviour
         {
             for (int j = 0; j < row; j++)
             {
-                GameObject instance = Instantiate(gems[Random.Range(0, gems.Length)], new Vector3(-5 + i * gems[0].GetComponent<BoxCollider2D>().size.x, 5 + j * gems[0].GetComponent<BoxCollider2D>().size.y, 0), Quaternion.identity);
-                instance.transform.SetParent(boardHolder);
+                GameObject instance = Instantiate(gems[Random.Range(0, gems.Length)], new Vector3(-5 + i * gems[0].GetComponent<BoxCollider2D>().size.x + 0.1f, 5 + j * gems[0].GetComponent<BoxCollider2D>().size.y + 0.1f, 0), Quaternion.identity);
+                instance.transform.SetParent(boardHolder); ;
             }
+        }
+        StartCoroutine(RefreshNeighbor());
+    }
+
+    private IEnumerator RefreshNeighbor()
+    {
+        yield return new WaitForSeconds(1f);
+        for (int i = 0; i < boardHolder.childCount; i++)
+        {
+            boardHolder.GetChild(i).GetComponent<GemControler>().RefreshNeighbor();
         }
     }
 
     private void FixedUpdate()
     {
-        transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
     // Update is called once per frame
+
     private void Update()
     {
     }

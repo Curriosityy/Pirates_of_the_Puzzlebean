@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Table
+  - gem1
+  - gem2
+  - gem3
+  - gem4
   layers:
   - Default
   - TransparentFX

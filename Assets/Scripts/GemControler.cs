@@ -4,16 +4,10 @@ using UnityEngine;
 
 public class GemControler : MonoBehaviour
 {
-    //[HideInInspector]
-    public List<GameObject> neighbors;
-
     [HideInInspector]
-    private bool isSelected = false;
+    public bool move = false;
 
-    private void Awake()
-    {
-        neighbors = new List<GameObject>();
-    }
+    public GameObject[] neighbors = new GameObject[4];
 
     // Use this for initialization
     private void Start()
@@ -23,21 +17,14 @@ public class GemControler : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        //RefreshNeighbor();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void RefreshNeighbor()
     {
-        if (!collision.isTrigger && collision.gameObject.tag != "Table")
-        {
-            neighbors.Add(collision.gameObject);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (!collision.isTrigger && collision.gameObject.tag != "Table")
-        {
-            neighbors.Remove(collision.gameObject);
-        }
+        neighbors[0] = transform.Find("Left").GetComponent<Neighbor>().neightbor;
+        neighbors[1] = transform.Find("Right").GetComponent<Neighbor>().neightbor;
+        neighbors[2] = transform.Find("Up").GetComponent<Neighbor>().neightbor;
+        neighbors[3] = transform.Find("Down").GetComponent<Neighbor>().neightbor;
     }
 }
