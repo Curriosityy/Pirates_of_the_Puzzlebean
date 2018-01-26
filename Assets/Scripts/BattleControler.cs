@@ -9,6 +9,7 @@ public class BattleControler : MonoBehaviour
     public int row;
     public int col;
 
+    public bool finded = false;
     private Transform boardHolder;
 
     private void Start()
@@ -32,10 +33,19 @@ public class BattleControler : MonoBehaviour
 
     private IEnumerator RefreshNeighbor()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
         for (int i = 0; i < boardHolder.childCount; i++)
         {
             boardHolder.GetChild(i).GetComponent<GemControler>().RefreshNeighbor();
+        }
+        for (int i = 0; i < boardHolder.childCount; i++)
+        {
+            boardHolder.GetChild(i).GetComponentInChildren<GemControler>().SearchNeighbors();
+        }
+        for (int i = 0; i < boardHolder.childCount; i++)
+        {
+            if (boardHolder.GetChild(i).GetComponentInChildren<GemControler>().matched)
+                Destroy(boardHolder.GetChild(i).gameObject);
         }
     }
 
