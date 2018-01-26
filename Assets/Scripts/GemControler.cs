@@ -22,7 +22,7 @@ public class GemControler : MonoBehaviour
         //RefreshNeighbor();
     }
 
-    public bool SearchNeighbors()
+    public bool SearchForMatch()
     {
         List<GameObject> vertList = new List<GameObject>();
         List<GameObject> horiList = new List<GameObject>();
@@ -93,5 +93,9 @@ public class GemControler : MonoBehaviour
         neighbors[2] = transform.Find("Right").GetComponent<Neighbor>().neightbor;
         neighbors[1] = transform.Find("Up").GetComponent<Neighbor>().neightbor;
         neighbors[3] = transform.Find("Down").GetComponent<Neighbor>().neightbor;
+    }
+
+    private void OnDestroy()
+    {
     }
 }
