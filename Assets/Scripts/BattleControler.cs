@@ -25,7 +25,7 @@ public class BattleControler : MonoBehaviour
         {
             for (int j = 0; j < row; j++)
             {
-                board[i, j] = Instantiate(gems[Random.Range(0, gems.Length)], new Vector3(-5 + i * gems[0].GetComponent<BoxCollider2D>().size.x + 0.1f, 5 + j * gems[0].GetComponent<BoxCollider2D>().size.y + 0.1f, 0), Quaternion.identity);
+                board[i, j] = Instantiate(gems[Random.Range(0, gems.Length)], new Vector3(-5 + (i * (gems[0].GetComponent<BoxCollider2D>().size.x + 0.1f)), 5 + (j * gems[0].GetComponent<BoxCollider2D>().size.y), 0), Quaternion.identity);
                 board[i, j].transform.SetParent(boardHolder);
             }
         }
