@@ -300,7 +300,7 @@ MonoBehaviour:
   - {fileID: 1507256611471702, guid: 7000eeaa27c00d049a88b985cdfcc542, type: 2}
   - {fileID: 1033291513924938, guid: ec45f8ff92ab18f4ebe9b6e8c2d9c3c3, type: 2}
   row: 8
-  col: 6
+  col: 8
   finded: 0
 --- !u!4 &1494821946
 Transform:

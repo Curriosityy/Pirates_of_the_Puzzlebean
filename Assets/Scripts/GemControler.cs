@@ -4,22 +4,26 @@ using UnityEngine;
 
 public class GemControler : MonoBehaviour
 {
+    public float gemsSpeed;
+
     [HideInInspector]
     public bool move = false;
 
     public bool matched = false;
+
+    public bool reached = true;
 
     public GameObject[] neighbors = { null, null, null, null };
 
     // Use this for initialization
     private void Start()
     {
+        reached = true;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        //RefreshNeighbor();
     }
 
     public bool SearchForMatch()
@@ -95,7 +99,28 @@ public class GemControler : MonoBehaviour
         neighbors[3] = transform.Find("Down").GetComponent<Neighbor>().neightbor;
     }
 
+    public IEnumerator Move(Vector2 endPoint)
+    {
+        reached = false;
+        while ((Vector2)transform.position != endPoint)
+        {
+            move = true;
+            reached = false;
+            //transform.position = Vector2.Lerp(transform.position, endPoint, gemsSpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, endPoint, gemsSpeed * Time.deltaTime);
+            yield return null;
+        }
+        transform.position = endPoint;
+        move = false;
+        reached = true;
+    }
+
     private void OnDestroy()
     {
+    }
+
+    private void OnDisable()
+    {
+        Destroy(gameObject);
     }
 }
