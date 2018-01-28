@@ -19,11 +19,13 @@ public class GemControler : MonoBehaviour
     private void Start()
     {
         reached = true;
+        RefreshNeighbor();
     }
 
     // Update is called once per frame
     private void Update()
     {
+        RefreshNeighbor();
     }
 
     public bool SearchForMatch()
@@ -102,7 +104,7 @@ public class GemControler : MonoBehaviour
     public IEnumerator Move(Vector2 endPoint)
     {
         reached = false;
-        while ((Vector2)transform.position != endPoint)
+        while (this != null && (Vector2)transform.position != endPoint)
         {
             move = true;
             reached = false;
@@ -110,13 +112,12 @@ public class GemControler : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, endPoint, gemsSpeed * Time.deltaTime);
             yield return null;
         }
-        transform.position = endPoint;
-        move = false;
-        reached = true;
-    }
-
-    private void OnDestroy()
-    {
+        if (this != null)
+        {
+            transform.position = endPoint;
+            move = false;
+            reached = true;
+        }
     }
 
     private void OnDisable()

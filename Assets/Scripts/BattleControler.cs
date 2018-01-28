@@ -8,14 +8,14 @@ public class BattleControler : MonoBehaviour
     public GameObject[] gems;
     public int row;
     public int col;
-    private GameObject[,] board;
+    private GemControler[,] board;
     public bool finded = false;
     private Transform boardHolder;
-    private bool anyMoveObj = false;
+    public float[] probabilityOfEachGem;
 
     private void Start()
     {
-        board = new GameObject[col, row];
+        board = new GemControler[col, row];
         GenerateBoard();
     }
 
@@ -29,28 +29,33 @@ public class BattleControler : MonoBehaviour
                 GenerateGem(i, j);
             }
         }
-        StartCoroutine(RefreshOnStart());
+    }
+
+    private int randomizeGem()
+    {
+        float sum = 0;
+        float random = (float)Random.Range(0f, 1f);
+        Debug.Log(random);
+        for (int i = 0; i < gems.Length; i++)
+        {
+            sum += probabilityOfEachGem[i];
+            if (sum >= random)
+            {
+                return i;
+            }
+        }
+        return gems.Length - 1;
     }
 
     private void GenerateGem(int i, int j)
     {
-        board[i, j] = Instantiate(gems[Random.Range(0, gems.Length)], new Vector2(-5 + (i * (gems[0].GetComponent<BoxCollider2D>().size.x + 0.1f)), 5 + (j * gems[0].GetComponent<BoxCollider2D>().size.y)), Quaternion.identity);
+        float x, y;
+        GetXAndYOnBoard(i, j, out x, out y);
+        board[i, j] = Instantiate(gems[randomizeGem()], new Vector2(x, y), Quaternion.identity).GetComponent<GemControler>();
         board[i, j].transform.SetParent(boardHolder);
     }
 
-    private IEnumerator RefreshOnStart()
-    {
-        yield return new WaitForSeconds(0.1f);
-        RefreshNeightborsAndCheck();
-        destroyMatched();
-    }
-
-    private void RefreshNeighbor(GemControler xgemControler)
-    {
-        xgemControler.RefreshNeighbor();
-    }
-
-    private void RefreshNeightborsAndCheck()
+    private void CheckForMatch()
     {
         for (int i = 0; i < col; i++)
         {
@@ -58,17 +63,7 @@ public class BattleControler : MonoBehaviour
             {
                 if (board[i, j] != null)
                 {
-                    RefreshNeighbor(board[i, j].GetComponent<GemControler>());
-                }
-            }
-        }
-        for (int i = 0; i < col; i++)
-        {
-            for (int j = 0; j < row; j++)
-            {
-                if (board[i, j] != null)
-                {
-                    checkForMatch(board[i, j].GetComponent<GemControler>());
+                    checkForMatch(board[i, j]);
                 }
             }
         }
@@ -77,19 +72,19 @@ public class BattleControler : MonoBehaviour
     private void checkForMatch(GemControler xgemControler)
     {
         xgemControler.SearchForMatch();
-        //destroyMatched();
     }
 
-    private void destroyMatched()
+    private void DestroyMatches()
     {
         for (int i = 0; i < col; i++)
         {
             for (int j = 0; j < row; j++)
             {
                 if (board[i, j] != null)
-                    if (board[i, j].GetComponent<GemControler>().matched && !board[i, j].GetComponent<GemControler>().move)
+                    if (board[i, j].matched && !board[i, j].move)
                     {
-                        board[i, j].SetActive(false);
+                        Debug.Log(board[i, j].tag);
+                        board[i, j].gameObject.SetActive(false);
                         board[i, j] = null;
                     }
             }
@@ -106,9 +101,10 @@ public class BattleControler : MonoBehaviour
                 {
                     if (board[i, j + 1] != null)
                     {
-                        //if (!board[i, j + 1].GetComponent<GemControler>().move)
-                        StartCoroutine(board[i, j + 1].GetComponent<GemControler>().Move(new Vector2(-5 + (i * (gems[0].GetComponent<BoxCollider2D>().size.x + 0.1f)), 5 + (j * gems[0].GetComponent<BoxCollider2D>().size.y))));
-                        if (board[i, j + 1].GetComponent<GemControler>().reached)
+                        float x, y;
+                        GetXAndYOnBoard(i, j, out x, out y);
+                        StartCoroutine(board[i, j + 1].Move(new Vector2(x, y)));
+                        if (board[i, j + 1].reached)
                         {
                             board[i, j] = board[i, j + 1];
                             board[i, j + 1] = null;
@@ -121,36 +117,36 @@ public class BattleControler : MonoBehaviour
                 }
             }
         }
-        if (!PauseUntilFilledAndNoMoveingObj())
-        {
-            RefreshNeightborsAndCheck();
-            //Debug.Break();
-            destroyMatched();
-        }
     }
 
-    private void FixedUpdate()
+    private void GetXAndYOnBoard(int i, int j, out float x, out float y)
     {
+        x = -5 + (i * (gems[0].GetComponent<BoxCollider2D>().size.x + 0.1f));
+        y = 5 + (j * gems[0].GetComponent<BoxCollider2D>().size.y);
     }
 
-    // Update is called once per frame
-    private bool PauseUntilFilledAndNoMoveingObj()
+    private bool isMapFull()
     {
         for (int i = 0; i < col; i++)
         {
-            for (int j = 0; j < row - 1; j++)
+            for (int j = 0; j < row; j++)
             {
-                if (board[i, j] == null || board[i, j].GetComponent<GemControler>().move || !board[i, j].GetComponent<GemControler>().reached)
+                if (board[i, j] == null)
                 {
-                    return true;
+                    return false;
                 }
             }
         }
-        return false;
+        return true;
     }
 
     private void Update()
     {
         FallGems();
+        if (isMapFull())
+        {
+            CheckForMatch();
+            DestroyMatches();
+        }
     }
 }
