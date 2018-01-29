@@ -16,18 +16,19 @@ public class BattleControler : MonoBehaviour
 
     private void Start()
     {
-        board = new GemControler[col, row];
+        board = new GemControler[col, row + 1];
         GenerateBoard();
     }
 
     private void GenerateBoard()
     {
         boardHolder = new GameObject("board").transform;
+        boardHolder.transform.position = new Vector2(boardHolder.position.x, 6.47f);
         for (int i = 0; i < col; i++)
         {
             for (int j = 0; j < row; j++)
             {
-                GenerateGem(i, j);
+                GenerateGem(i, j, 0);
             }
         }
     }
@@ -47,10 +48,10 @@ public class BattleControler : MonoBehaviour
         return gems.Length - 1;
     }
 
-    private void GenerateGem(int i, int j)
+    private void GenerateGem(int i, int j, int shift)
     {
         float x, y;
-        GetXAndYOnBoard(i, j, out x, out y);
+        GetXAndYOnBoard(i, j + shift, out x, out y);
         board[i, j] = Instantiate(gems[randomizeGem()], new Vector2(x, y), Quaternion.identity).GetComponent<GemControler>();
         board[i, j].transform.SetParent(boardHolder);
     }
@@ -95,7 +96,7 @@ public class BattleControler : MonoBehaviour
     {
         for (int i = 0; i < col; i++)
         {
-            for (int j = 0; j < row - 1; j++)
+            for (int j = 0; j < row; j++)
             {
                 if (board[i, j] == null)
                 {
@@ -108,6 +109,10 @@ public class BattleControler : MonoBehaviour
                         {
                             board[i, j] = board[i, j + 1];
                             board[i, j + 1] = null;
+                            if (!board[i, j].GetComponent<Collider2D>().enabled)
+                            {
+                                board[i, j].GetComponent<Collider2D>().enabled = true;
+                            }
                         }
                     }
                 }
@@ -118,7 +123,7 @@ public class BattleControler : MonoBehaviour
     private void GetXAndYOnBoard(int i, int j, out float x, out float y)
     {
         x = -5 + (i * (gems[0].GetComponent<BoxCollider2D>().size.x + 0.1f));
-        y = 5 + (j * gems[0].GetComponent<BoxCollider2D>().size.y);
+        y = 5 + (j * gems[0].GetComponent<BoxCollider2D>().size.y) + 6.47f;
     }
 
     private bool isMapFull()
@@ -140,9 +145,13 @@ public class BattleControler : MonoBehaviour
     {
         for (int i = 0; i < col; i++)
         {
-            if (board[i, row - 1] == null)
+            if (board[i, row] == null)
             {
-                GenerateGem(i, row - 1);
+                GenerateGem(i, row, 0);
+                board[i, row].GetComponent<Collider2D>().enabled = false;
+                //float x, y;
+                // GetXAndYOnBoard(i, row - 1, out x, out y);
+                //StartCoroutine(board[i, row - 1].Move(new Vector2(x, y)));
             }
         }
     }
@@ -151,8 +160,6 @@ public class BattleControler : MonoBehaviour
     {
         coIsRunning = true;
         CheckForMatch();
-        yield return new WaitForSeconds(2f);
-        Debug.Break();
         yield return null;
         DestroyMatches();
         coIsRunning = false;
