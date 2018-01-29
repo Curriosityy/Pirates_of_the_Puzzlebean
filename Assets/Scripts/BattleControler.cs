@@ -12,6 +12,7 @@ public class BattleControler : MonoBehaviour
     public bool finded = false;
     private Transform boardHolder;
     public float[] probabilityOfEachGem;
+    private static bool coIsRunning = false;
 
     private void Start()
     {
@@ -35,7 +36,6 @@ public class BattleControler : MonoBehaviour
     {
         float sum = 0;
         float random = (float)Random.Range(0f, 1f);
-        Debug.Log(random);
         for (int i = 0; i < gems.Length; i++)
         {
             sum += probabilityOfEachGem[i];
@@ -111,10 +111,6 @@ public class BattleControler : MonoBehaviour
                         }
                     }
                 }
-                if (board[i, row - 1] == null)
-                {
-                    GenerateGem(i, row - 1);
-                }
             }
         }
     }
@@ -140,13 +136,44 @@ public class BattleControler : MonoBehaviour
         return true;
     }
 
+    private void generateGemOnTop()
+    {
+        for (int i = 0; i < col; i++)
+        {
+            if (board[i, row - 1] == null)
+            {
+                GenerateGem(i, row - 1);
+            }
+        }
+    }
+
+    private IEnumerator MatchAndDestroy()
+    {
+        coIsRunning = true;
+        CheckForMatch();
+        yield return new WaitForSeconds(2f);
+        Debug.Break();
+        yield return null;
+        DestroyMatches();
+        coIsRunning = false;
+    }
+
     private void Update()
     {
-        FallGems();
         if (isMapFull())
         {
-            CheckForMatch();
+            /*CheckForMatch();
             DestroyMatches();
+            */
+            if (!coIsRunning)
+            {
+                StartCoroutine(MatchAndDestroy());
+            }
+        }
+        if (!isMapFull())
+        {
+            FallGems();
+            generateGemOnTop();
         }
     }
 }

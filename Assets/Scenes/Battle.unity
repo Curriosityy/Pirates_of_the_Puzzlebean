@@ -229,11 +229,11 @@ MonoBehaviour:
   col: 6
   finded: 0
   probabilityOfEachGem:
-  - 0.2
-  - 0.2
-  - 0.2
-  - 0.2
-  - 0.2
+  - 0.25
+  - 0.25
+  - 0.25
+  - 0.15
+  - 0.1
 --- !u!4 &1494821946
 Transform:
   m_ObjectHideFlags: 0

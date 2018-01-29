@@ -5,27 +5,40 @@ using UnityEngine;
 public class GemControler : MonoBehaviour
 {
     public float gemsSpeed;
+    private Rigidbody2D rb;
 
     [HideInInspector]
     public bool move = false;
 
+    public ParticleSystem ps;
+
     public bool matched = false;
 
     public bool reached = true;
+
+    public static Stack<bool> anyCoIsRun = new Stack<bool>();
 
     public GameObject[] neighbors = { null, null, null, null };
 
     // Use this for initialization
     private void Start()
     {
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        ps = gameObject.GetComponent<ParticleSystem>();
         reached = true;
-        RefreshNeighbor();
     }
 
     // Update is called once per frame
     private void Update()
     {
-        RefreshNeighbor();
+        if (matched)
+        {
+            ps.Play();
+        }
+        else
+        {
+            ps.Stop();
+        }
     }
 
     public bool SearchForMatch()
@@ -93,30 +106,27 @@ public class GemControler : MonoBehaviour
         return stack;
     }
 
-    public void RefreshNeighbor()
-    {
-        neighbors[0] = transform.Find("Left").GetComponent<Neighbor>().neightbor;
-        neighbors[2] = transform.Find("Right").GetComponent<Neighbor>().neightbor;
-        neighbors[1] = transform.Find("Up").GetComponent<Neighbor>().neightbor;
-        neighbors[3] = transform.Find("Down").GetComponent<Neighbor>().neightbor;
-    }
-
     public IEnumerator Move(Vector2 endPoint)
     {
-        reached = false;
-        while (this != null && (Vector2)transform.position != endPoint)
+        if (!move)
         {
-            move = true;
+            anyCoIsRun.Push(true);
             reached = false;
-            //transform.position = Vector2.Lerp(transform.position, endPoint, gemsSpeed * Time.deltaTime);
-            transform.position = Vector2.MoveTowards(transform.position, endPoint, gemsSpeed * Time.deltaTime);
-            yield return null;
-        }
-        if (this != null)
-        {
-            transform.position = endPoint;
-            move = false;
-            reached = true;
+            while (this != null && (Vector2)transform.position != endPoint)
+            {
+                move = true;
+                reached = false;
+                //transform.position = Vector2.Lerp(transform.position, endPoint, gemsSpeed * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, endPoint, gemsSpeed * Time.deltaTime);
+                yield return null;
+            }
+            anyCoIsRun.Pop();
+            if (this != null)
+            {
+                transform.position = endPoint;
+                move = false;
+                reached = true;
+            }
         }
     }
 
