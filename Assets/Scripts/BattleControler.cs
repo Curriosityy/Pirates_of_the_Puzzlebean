@@ -120,6 +120,34 @@ public class BattleControler : MonoBehaviour
         }
     }
 
+    private void FallGems2()
+    {
+        for (int i = 0; i < col; i++)
+        {
+            Vector2Int firstNull = new Vector2Int(-1, -1);
+            for (int j = 0; j <= row; j++)
+            {
+                if (board[i, j] == null && firstNull == new Vector2Int(-1, -1))
+                {
+                    firstNull = new Vector2Int(i, j);
+                }
+                if (board[i, j] != null && firstNull != new Vector2Int(-1, -1))
+                {
+                    float x, y;
+                    GetXAndYOnBoard(firstNull.x, firstNull.y, out x, out y);
+                    StartCoroutine(board[i, j].Move(new Vector2(x, y)));
+                    board[firstNull.x, firstNull.y] = board[i, j];
+                    board[i, j] = null;
+                    if (!board[firstNull.x, firstNull.y].GetComponent<Collider2D>().enabled)
+                    {
+                        board[firstNull.x, firstNull.y].GetComponent<Collider2D>().enabled = true;
+                    }
+                    firstNull += new Vector2Int(0, 1);
+                }
+            }
+        }
+    }
+
     private void GetXAndYOnBoard(int i, int j, out float x, out float y)
     {
         x = -5 + (i * (gems[0].GetComponent<BoxCollider2D>().size.x + 0.1f));
@@ -159,22 +187,23 @@ public class BattleControler : MonoBehaviour
     private IEnumerator MatchAndDestroy()
     {
         coIsRunning = true;
+        yield return new WaitForFixedUpdate();
         CheckForMatch();
-        yield return null;
+        yield return new WaitForFixedUpdate();
         DestroyMatches();
         coIsRunning = false;
     }
 
     private void Update()
     {
-        if (isMapFull())
+        if (GemControler.anyCoIsRun.Count == 0)
         {
-            /*CheckForMatch();
-            DestroyMatches();
-            */
-            if (!coIsRunning)
+            if (isMapFull())
             {
-                StartCoroutine(MatchAndDestroy());
+                if (!coIsRunning)
+                {
+                    StartCoroutine(MatchAndDestroy());
+                }
             }
         }
         if (!isMapFull())

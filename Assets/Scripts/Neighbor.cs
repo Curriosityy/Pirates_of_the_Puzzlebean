@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Neighbor : MonoBehaviour
 {
+    public GameObject neightbor;
+
     // Use this for initialization
     private void Start()
     {
@@ -13,32 +15,41 @@ public class Neighbor : MonoBehaviour
     {
         if (!collision.isTrigger && transform.parent.GetInstanceID() != collision.transform.GetInstanceID())
         {
+            neightbor = collision.gameObject;
             switch (name)
             {
                 case "Up":
                     {
-                        GetComponentInParent<GemControler>().neighbors[1] = collision.gameObject;
+                        GetComponentInParent<GemControler>().neighbors[1] = neightbor;
                     }
                     break;
 
                 case "Down":
                     {
-                        GetComponentInParent<GemControler>().neighbors[3] = collision.gameObject;
+                        GetComponentInParent<GemControler>().neighbors[3] = neightbor;
                     }
                     break;
 
                 case "Left":
                     {
-                        GetComponentInParent<GemControler>().neighbors[0] = collision.gameObject;
+                        GetComponentInParent<GemControler>().neighbors[0] = neightbor;
                     }
                     break;
 
                 case "Right":
                     {
-                        GetComponentInParent<GemControler>().neighbors[2] = collision.gameObject;
+                        GetComponentInParent<GemControler>().neighbors[2] = neightbor;
                     }
                     break;
             }
+        }
+    }
+
+    private void deleteIfEqual(GameObject go, int i)
+    {
+        if (GetComponentInParent<GemControler>().neighbors[i].GetInstanceID() == go.GetInstanceID())
+        {
+            GetComponentInParent<GemControler>().neighbors[i] = null;
         }
     }
 
@@ -50,25 +61,25 @@ public class Neighbor : MonoBehaviour
             {
                 case "Up":
                     {
-                        GetComponentInParent<GemControler>().neighbors[1] = null;
+                        deleteIfEqual(collision.gameObject, 1);
                     }
                     break;
 
                 case "Down":
                     {
-                        GetComponentInParent<GemControler>().neighbors[3] = null;
+                        deleteIfEqual(collision.gameObject, 3);
                     }
                     break;
 
                 case "Left":
                     {
-                        GetComponentInParent<GemControler>().neighbors[0] = null;
+                        deleteIfEqual(collision.gameObject, 0);
                     }
                     break;
 
                 case "Right":
                     {
-                        GetComponentInParent<GemControler>().neighbors[2] = null;
+                        deleteIfEqual(collision.gameObject, 2);
                     }
                     break;
             }
@@ -77,6 +88,10 @@ public class Neighbor : MonoBehaviour
 
     // Update is called once per frame
     private void Update()
+    {
+    }
+
+    private void OnDestroy()
     {
     }
 }

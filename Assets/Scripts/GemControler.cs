@@ -6,6 +6,7 @@ public class GemControler : MonoBehaviour
 {
     public float gemsSpeed;
     private Rigidbody2D rb;
+    private Collider2D cd;
 
     [HideInInspector]
     public bool move = false;
@@ -25,6 +26,7 @@ public class GemControler : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         ps = gameObject.GetComponent<ParticleSystem>();
+        cd = gameObject.GetComponent<Collider2D>();
         reached = true;
     }
 
@@ -41,47 +43,49 @@ public class GemControler : MonoBehaviour
         }
     }
 
-    public bool SearchForMatch()
+    private void RefreshNeightbors()
     {
-        List<GameObject> vertList = new List<GameObject>();
-        List<GameObject> horiList = new List<GameObject>();
-        List<GameObject> list = new List<GameObject>();
-        list.Add(gameObject);
-        for (int i = 0; i < 4; i++)
+    }
+
+    public void SearchForMatch()
+    {
+        if (!matched)
         {
-            if (i % 2 == 0)
+            List<GameObject> vertList = new List<GameObject>();
+            List<GameObject> horiList = new List<GameObject>();
+            List<GameObject> list = new List<GameObject>();
+            list.Add(gameObject);
+            for (int i = 0; i < 4; i++)
             {
-                Stack<GameObject> stack = SearchIn(i);
-                while (stack.Count > 0)
+                if (i % 2 == 0)
                 {
-                    vertList.Add(stack.Pop());
+                    Stack<GameObject> stack = SearchIn(i);
+                    while (stack.Count > 0)
+                    {
+                        vertList.Add(stack.Pop());
+                    }
+                }
+                else
+                {
+                    Stack<GameObject> stack = SearchIn(i);
+                    while (stack.Count > 0)
+                    {
+                        horiList.Add(stack.Pop());
+                    }
                 }
             }
-            else
+            if (vertList.Count >= 2)
+                list.AddRange(vertList);
+            if (horiList.Count >= 2)
+                list.AddRange(horiList);
+            if (list.Count >= 3)
             {
-                Stack<GameObject> stack = SearchIn(i);
-                while (stack.Count > 0)
+                foreach (GameObject g in list)
                 {
-                    horiList.Add(stack.Pop());
+                    g.GetComponent<GemControler>().matched = true;
                 }
+                list.Clear();
             }
-        }
-        if (vertList.Count >= 2)
-            list.AddRange(vertList);
-        if (horiList.Count >= 2)
-            list.AddRange(horiList);
-        if (list.Count >= 3)
-        {
-            foreach (GameObject g in list)
-            {
-                g.GetComponent<GemControler>().matched = true;
-            }
-            list.Clear();
-            return true;
-        }
-        else
-        {
-            return false;
         }
     }
 
@@ -111,22 +115,19 @@ public class GemControler : MonoBehaviour
         if (!move)
         {
             anyCoIsRun.Push(true);
-            reached = false;
             while (this != null && (Vector2)transform.position != endPoint)
             {
+                matched = false;
                 move = true;
                 reached = false;
                 //transform.position = Vector2.Lerp(transform.position, endPoint, gemsSpeed * Time.deltaTime);
                 transform.position = Vector2.MoveTowards(transform.position, endPoint, gemsSpeed * Time.deltaTime);
                 yield return null;
             }
+            transform.position = endPoint;
+            move = false;
+            reached = true;
             anyCoIsRun.Pop();
-            if (this != null)
-            {
-                transform.position = endPoint;
-                move = false;
-                reached = true;
-            }
         }
     }
 
