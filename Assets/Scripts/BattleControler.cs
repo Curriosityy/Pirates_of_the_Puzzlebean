@@ -13,6 +13,7 @@ public class BattleControler : MonoBehaviour
     private Transform boardHolder;
     public float[] probabilityOfEachGem;
     private static bool coIsRunning = false;
+    public static bool isMapFull = false;
 
     private void Start()
     {
@@ -120,41 +121,13 @@ public class BattleControler : MonoBehaviour
         }
     }
 
-    private void FallGems2()
-    {
-        for (int i = 0; i < col; i++)
-        {
-            Vector2Int firstNull = new Vector2Int(-1, -1);
-            for (int j = 0; j <= row; j++)
-            {
-                if (board[i, j] == null && firstNull == new Vector2Int(-1, -1))
-                {
-                    firstNull = new Vector2Int(i, j);
-                }
-                if (board[i, j] != null && firstNull != new Vector2Int(-1, -1))
-                {
-                    float x, y;
-                    GetXAndYOnBoard(firstNull.x, firstNull.y, out x, out y);
-                    StartCoroutine(board[i, j].Move(new Vector2(x, y)));
-                    board[firstNull.x, firstNull.y] = board[i, j];
-                    board[i, j] = null;
-                    if (!board[firstNull.x, firstNull.y].GetComponent<Collider2D>().enabled)
-                    {
-                        board[firstNull.x, firstNull.y].GetComponent<Collider2D>().enabled = true;
-                    }
-                    firstNull += new Vector2Int(0, 1);
-                }
-            }
-        }
-    }
-
     private void GetXAndYOnBoard(int i, int j, out float x, out float y)
     {
         x = -5 + (i * (gems[0].GetComponent<BoxCollider2D>().size.x + 0.1f));
         y = 5 + (j * gems[0].GetComponent<BoxCollider2D>().size.y) + 6.47f;
     }
 
-    private bool isMapFull()
+    private bool IsMapFull()
     {
         for (int i = 0; i < col; i++)
         {
@@ -162,10 +135,12 @@ public class BattleControler : MonoBehaviour
             {
                 if (board[i, j] == null)
                 {
+                    isMapFull = false;
                     return false;
                 }
             }
         }
+        isMapFull = true;
         return true;
     }
 
@@ -189,6 +164,8 @@ public class BattleControler : MonoBehaviour
         coIsRunning = true;
         yield return new WaitForFixedUpdate();
         CheckForMatch();
+        //yield return new WaitForSeconds(1f);
+        //Debug.Break();
         yield return new WaitForFixedUpdate();
         DestroyMatches();
         coIsRunning = false;
@@ -198,18 +175,50 @@ public class BattleControler : MonoBehaviour
     {
         if (GemControler.anyCoIsRun.Count == 0)
         {
-            if (isMapFull())
+            if (IsMapFull())
             {
                 if (!coIsRunning)
                 {
                     StartCoroutine(MatchAndDestroy());
+                    if (GemControler.toSwap.Count == 2)
+                    {
+                        int i, j, i2, j2;
+                        Vector2 vec = GemControler.toSwap[0].transform.position;
+                        StartCoroutine(GemControler.toSwap[0].Move(GemControler.toSwap[1].transform.position));
+                        StartCoroutine(GemControler.toSwap[1].Move(vec));
+                        getIJ(GemControler.toSwap[0], out i, out j);
+                        getIJ(GemControler.toSwap[1], out i2, out j2);
+                        GemControler temp = board[i, j];
+                        board[i, j] = board[i2, j2];
+                        board[i2, j2] = temp;
+                        GemControler.toSwap.Clear();
+                    }
                 }
             }
         }
-        if (!isMapFull())
+        if (!IsMapFull())
         {
             FallGems();
             generateGemOnTop();
         }
+    }
+
+    private bool getIJ(GemControler gem, out int xi, out int xj)
+    {
+        for (int i = 0; i < col; i++)
+        {
+            for (int j = 0; j < row; j++)
+            {
+                if (gem == board[i, j])
+                {
+                    xi = i;
+                    xj = j;
+                    return true;
+                }
+            }
+        }
+        xi = -1;
+        xj = -1;
+        return false;
     }
 }

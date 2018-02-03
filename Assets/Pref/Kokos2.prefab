@@ -80,8 +80,8 @@ GameObject:
   - component: {fileID: 114064730920948538}
   - component: {fileID: 61091121660456436}
   - component: {fileID: 50258217429481232}
-  - component: {fileID: 198218016214312486}
-  - component: {fileID: 199812225827432994}
+  - component: {fileID: 198751851856210166}
+  - component: {fileID: 199054197074818916}
   m_Layer: 0
   m_Name: Kokos2
   m_TagString: gem4
@@ -413,6 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637f516bdee71d9489368260c79f5e14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  neightbor: {fileID: 0}
 --- !u!114 &114064730920948538
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -426,7 +427,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gemsSpeed: 8
   move: 0
-  ps: {fileID: 198167186723816562, guid: 09b89e7467146d34d8348462d76cd609, type: 2}
+  ps: {fileID: 0}
   matched: 0
   reached: 0
   neighbors:
@@ -445,6 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637f516bdee71d9489368260c79f5e14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  neightbor: {fileID: 0}
 --- !u!114 &114705805882701616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -456,6 +458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637f516bdee71d9489368260c79f5e14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  neightbor: {fileID: 0}
 --- !u!114 &114783883849577530
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -467,7 +470,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637f516bdee71d9489368260c79f5e14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!198 &198218016214312486
+  neightbor: {fileID: 0}
+--- !u!198 &198751851856210166
 ParticleSystem:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -479,7 +483,7 @@ ParticleSystem:
   stopAction: 0
   looping: 1
   prewarm: 1
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -527,15 +531,15 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1187422506
+  randomSeed: 1269835077
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.34
-      minScalar: 1.87
+      scalar: 0.4
+      minScalar: 5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -575,7 +579,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: -4
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -617,7 +621,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 1, g: 0, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -801,7 +805,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationX:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -842,7 +846,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -883,8 +887,8 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotation:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0
+      minMaxState: 3
+      scalar: 1.5707963
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -971,7 +975,7 @@ ParticleSystem:
     serializedVersion: 5
     enabled: 1
     type: 4
-    angle: 25
+    angle: 0
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -992,7 +996,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1
+      value: 0.6509743
       mode: 0
       spread: 0
       speed:
@@ -3828,7 +3832,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!199 &199812225827432994
+--- !u!199 &199054197074818916
 ParticleSystemRenderer:
   serializedVersion: 4
   m_ObjectHideFlags: 1
