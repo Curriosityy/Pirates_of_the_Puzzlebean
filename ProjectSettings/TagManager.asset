@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Table
+  - gem1
+  - gem2
+  - gem3
+  - gem4
+  - gem5
+  - gem6
   layers:
   - Default
   - TransparentFX
@@ -38,6 +45,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
