@@ -12,8 +12,9 @@ public class BattleControler : MonoBehaviour
     public bool finded = false;
     private Transform boardHolder;
     public float[] probabilityOfEachGem;
-    private static bool coIsRunning = false;
+    public static bool coIsRunning = false;
     public static bool isMapFull = false;
+    private bool cleared = false;
 
     private void Start()
     {
@@ -164,7 +165,7 @@ public class BattleControler : MonoBehaviour
         coIsRunning = true;
         yield return new WaitForFixedUpdate();
         CheckForMatch();
-        //yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.5f);
         //Debug.Break();
         yield return new WaitForFixedUpdate();
         DestroyMatches();
@@ -179,7 +180,11 @@ public class BattleControler : MonoBehaviour
             {
                 if (!coIsRunning)
                 {
-                    StartCoroutine(MatchAndDestroy());
+                    if (!cleared)
+                    {
+                        StartCoroutine(MatchAndDestroy());
+                        cleared = true;
+                    }
                     if (GemControler.toSwap.Count == 2)
                     {
                         int i, j, i2, j2;
@@ -192,6 +197,7 @@ public class BattleControler : MonoBehaviour
                         board[i, j] = board[i2, j2];
                         board[i2, j2] = temp;
                         GemControler.toSwap.Clear();
+                        cleared = false;
                     }
                 }
             }
@@ -200,6 +206,7 @@ public class BattleControler : MonoBehaviour
         {
             FallGems();
             generateGemOnTop();
+            cleared = false;
         }
     }
 

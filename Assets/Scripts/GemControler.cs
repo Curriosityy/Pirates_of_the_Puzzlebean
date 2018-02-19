@@ -153,7 +153,7 @@ public class GemControler : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (toSwap.Count < 2 && anyCoIsRun.Count == 0 && BattleControler.isMapFull)
+        if (toSwap.Count < 2 && anyCoIsRun.Count == 0 && BattleControler.isMapFull && !BattleControler.coIsRunning)
         {
             if (!toSwap.Contains(this))
             {

@@ -461,11 +461,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a34bcc946171e4c4585c40f704a80ec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gemsSpeed: 8
+  gemsSpeed: 12
   move: 0
   ps: {fileID: 0}
   matched: 0
   reached: 0
+  selected: 0
   neighbors:
   - {fileID: 0}
   - {fileID: 0}
