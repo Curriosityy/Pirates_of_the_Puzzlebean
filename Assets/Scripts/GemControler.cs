@@ -153,32 +153,33 @@ public class GemControler : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (toSwap.Count < 2 && anyCoIsRun.Count == 0 && BattleControler.isMapFull && !BattleControler.coIsRunning)
-        {
-            if (!toSwap.Contains(this))
+        if (!PauseControler.pause)
+            if (toSwap.Count < 2 && anyCoIsRun.Count == 0 && BattleControler.isMapFull && !BattleControler.coIsRunning)
             {
-                if (toSwap.Count == 1)
+                if (!toSwap.Contains(this))
                 {
-                    for (int i = 0; i < 4; i++)
+                    if (toSwap.Count == 1)
                     {
-                        if (toSwap[0].neighbors[i] == gameObject)
+                        for (int i = 0; i < 4; i++)
                         {
-                            toSwap.Add(this);
-                            selected = true;
+                            if (toSwap[0].neighbors[i] == gameObject)
+                            {
+                                toSwap.Add(this);
+                                selected = true;
+                            }
                         }
+                    }
+                    else
+                    {
+                        toSwap.Add(this);
+                        selected = true;
                     }
                 }
                 else
                 {
-                    toSwap.Add(this);
-                    selected = true;
+                    toSwap.Remove(this);
+                    selected = false;
                 }
             }
-            else
-            {
-                toSwap.Remove(this);
-                selected = false;
-            }
-        }
     }
 }

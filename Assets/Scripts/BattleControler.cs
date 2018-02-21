@@ -18,6 +18,10 @@ public class BattleControler : MonoBehaviour
 
     private void Start()
     {
+        coIsRunning = false;
+        isMapFull = false;
+        cleared = false;
+        finded = false;
         board = new GemControler[col, row + 1];
         GenerateBoard();
     }
@@ -168,45 +172,53 @@ public class BattleControler : MonoBehaviour
         yield return new WaitForSeconds(.5f);
         //Debug.Break();
         yield return new WaitForFixedUpdate();
+        while (PauseControler.pause)
+        {
+            yield return null;
+        }
         DestroyMatches();
         coIsRunning = false;
     }
 
     private void Update()
     {
-        if (GemControler.anyCoIsRun.Count == 0)
+        Debug.Log(PauseControler.pause + " " + coIsRunning + " " + isMapFull + " " + GemControler.anyCoIsRun.Count);
+        if (!PauseControler.pause)
         {
-            if (IsMapFull())
+            if (GemControler.anyCoIsRun.Count == 0)
             {
-                if (!coIsRunning)
+                if (IsMapFull())
                 {
-                    if (!cleared)
+                    if (!coIsRunning)
                     {
-                        StartCoroutine(MatchAndDestroy());
-                        cleared = true;
-                    }
-                    if (GemControler.toSwap.Count == 2)
-                    {
-                        int i, j, i2, j2;
-                        Vector2 vec = GemControler.toSwap[0].transform.position;
-                        StartCoroutine(GemControler.toSwap[0].Move(GemControler.toSwap[1].transform.position));
-                        StartCoroutine(GemControler.toSwap[1].Move(vec));
-                        getIJ(GemControler.toSwap[0], out i, out j);
-                        getIJ(GemControler.toSwap[1], out i2, out j2);
-                        GemControler temp = board[i, j];
-                        board[i, j] = board[i2, j2];
-                        board[i2, j2] = temp;
-                        GemControler.toSwap.Clear();
-                        cleared = false;
+                        if (!cleared)
+                        {
+                            StartCoroutine(MatchAndDestroy());
+                            cleared = true;
+                        }
+                        if (GemControler.toSwap.Count == 2)
+                        {
+                            int i, j, i2, j2;
+                            Vector2 vec = GemControler.toSwap[0].transform.position;
+                            StartCoroutine(GemControler.toSwap[0].Move(GemControler.toSwap[1].transform.position));
+                            StartCoroutine(GemControler.toSwap[1].Move(vec));
+                            getIJ(GemControler.toSwap[0], out i, out j);
+                            getIJ(GemControler.toSwap[1], out i2, out j2);
+                            GemControler temp = board[i, j];
+                            board[i, j] = board[i2, j2];
+                            board[i2, j2] = temp;
+                            GemControler.toSwap.Clear();
+                            cleared = false;
+                        }
                     }
                 }
             }
-        }
-        if (!IsMapFull())
-        {
-            FallGems();
-            generateGemOnTop();
-            cleared = false;
+            if (!IsMapFull())
+            {
+                FallGems();
+                generateGemOnTop();
+                cleared = false;
+            }
         }
     }
 
