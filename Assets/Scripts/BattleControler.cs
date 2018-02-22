@@ -90,7 +90,6 @@ public class BattleControler : MonoBehaviour
                 if (board[i, j] != null)
                     if (board[i, j].matched && !board[i, j].move)
                     {
-                        Debug.Log(board[i, j].tag);
                         board[i, j].gameObject.SetActive(false);
                         board[i, j] = null;
                     }
@@ -186,7 +185,6 @@ public class BattleControler : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(PauseControler.pause + " " + coIsRunning + " " + isMapFull + " " + GemControler.anyCoIsRun.Count);
         if (!PauseControler.pause)
         {
             if (GemControler.anyCoIsRun.Count == 0)

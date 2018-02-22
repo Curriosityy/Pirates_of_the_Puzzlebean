@@ -30,8 +30,7 @@ public class MapSaver : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            MenuControler mc = new MenuControler();
-            mc.changeOnButtonPlay(0);
+            MenuControler.ChangeBetweenScenes(0);
         }
     }
 }

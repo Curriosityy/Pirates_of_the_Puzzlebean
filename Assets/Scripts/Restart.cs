@@ -11,6 +11,10 @@ public class Restart : MonoBehaviour
         {
             Destroy(MapSaver.instance.gameObject);
         }
+        if (Player.instance != null)
+        {
+            Destroy(Player.instance.gameObject);
+        }
     }
 
     // Update is called once per frame

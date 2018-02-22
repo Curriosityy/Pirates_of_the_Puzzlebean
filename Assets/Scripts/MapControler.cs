@@ -23,10 +23,9 @@ public class MapControler : MonoBehaviour
     {
         if (previousCross == null)
         {
-            MenuControler mc = new MenuControler();
             Instantiate(selectedCross, transform.position, Quaternion.identity, mapHolder.transform);
             Destroy(gameObject);
-            mc.changeOnButtonPlay(2);
+            MenuControler.ChangeBetweenScenes(2);
             mapHolder.SetActive(false);
         }
     }
