@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MapSaver : MonoBehaviour
 {
-    private static MapSaver instance = null;
+    public static MapSaver instance = null;
 
     private void Awake()
     {
@@ -28,5 +28,10 @@ public class MapSaver : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            MenuControler mc = new MenuControler();
+            mc.changeOnButtonPlay(0);
+        }
     }
 }
