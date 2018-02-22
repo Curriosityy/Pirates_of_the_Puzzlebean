@@ -9,7 +9,7 @@ public class BattleControler : MonoBehaviour
     public int row;
     public int col;
     private GemControler[,] board;
-    public bool finded = false;
+    public static bool finded = false;
     private Transform boardHolder;
     public float[] probabilityOfEachGem;
     public static bool coIsRunning = false;
@@ -169,14 +169,18 @@ public class BattleControler : MonoBehaviour
         coIsRunning = true;
         yield return new WaitForFixedUpdate();
         CheckForMatch();
-        yield return new WaitForSeconds(.5f);
-        //Debug.Break();
-        yield return new WaitForFixedUpdate();
-        while (PauseControler.pause)
+        if (finded)
         {
-            yield return null;
+            yield return new WaitForSeconds(.5f);
+            //Debug.Break();
+            yield return new WaitForFixedUpdate();
+            while (PauseControler.pause)
+            {
+                yield return null;
+            }
+            DestroyMatches();
+            finded = false;
         }
-        DestroyMatches();
         coIsRunning = false;
     }
 

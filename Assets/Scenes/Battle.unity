@@ -389,7 +389,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -730,7 +730,6 @@ MonoBehaviour:
   - {fileID: 1343975331841514, guid: 658e5b9aab4d216469d4a5bf2830244a, type: 2}
   row: 8
   col: 6
-  finded: 0
   probabilityOfEachGem:
   - 0.25
   - 0.25

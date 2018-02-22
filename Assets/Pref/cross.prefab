@@ -20,6 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4226061105632326}
   - component: {fileID: 212697999352432384}
+  - component: {fileID: 114867620794468998}
+  - component: {fileID: 61554845868421974}
   m_Layer: 0
   m_Name: cross
   m_TagString: Untagged
@@ -40,6 +42,46 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61554845868421974
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1034853964418376}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.92, y: 1.305}
+    newSize: {x: 1.92, y: 1.305}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.92, y: 1.305}
+  m_EdgeRadius: 0
+--- !u!114 &114867620794468998
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1034853964418376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92c12836d54451b4f829d5982fe37aac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  previousCross: {fileID: 0}
+  selectedCross: {fileID: 1101808931109540, guid: 928b91346373f004cb7f9c1e97f941f9,
+    type: 2}
+  mapHolder: {fileID: 0}
 --- !u!212 &212697999352432384
 SpriteRenderer:
   m_ObjectHideFlags: 1

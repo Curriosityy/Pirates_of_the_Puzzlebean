@@ -94,6 +94,7 @@ public class GemControler : MonoBehaviour
                 list.AddRange(horiList);
             if (list.Count >= 3)
             {
+                BattleControler.finded = true;
                 foreach (GameObject g in list)
                 {
                     g.GetComponent<GemControler>().matched = true;
