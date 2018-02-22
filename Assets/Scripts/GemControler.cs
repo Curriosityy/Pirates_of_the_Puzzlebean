@@ -5,7 +5,6 @@ using UnityEngine;
 public class GemControler : MonoBehaviour
 {
     public float gemsSpeed;
-    private Collider2D cd;
 
     [HideInInspector]
     public bool move = false;
@@ -28,7 +27,6 @@ public class GemControler : MonoBehaviour
     private void Start()
     {
         //rb = gameObject.GetComponent<Rigidbody2D>();
-        cd = gameObject.GetComponent<Collider2D>();
         reached = true;
         ps = gameObject.GetComponent<ParticleSystem>();
         ps.Stop();
