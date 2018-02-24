@@ -11,9 +11,9 @@ public class Restart : MonoBehaviour
         {
             Destroy(MapSaver.instance.gameObject);
         }
-        if (Player.instance != null)
+        if (Player.Instance != null)
         {
-            Destroy(Player.instance.gameObject);
+            Destroy(Player.Instance.gameObject);
         }
     }
 

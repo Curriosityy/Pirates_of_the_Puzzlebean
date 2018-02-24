@@ -35,4 +35,9 @@ public class PauseControler : MonoBehaviour
         pauseMenuUI.SetActive(pause);
         Time.timeScale = 1;
     }
+
+    public void OnClickSwapScenes(int i)
+    {
+        MenuControler.ChangeBetweenScenes(i);
+    }
 }

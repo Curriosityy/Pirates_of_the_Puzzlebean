@@ -5,13 +5,53 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Character character;
-    private string name;
-    private int startHitPoint;
-    private int maxHitPoint;
+    private string shipName;
+    private int hitPoint;
     private int shipEnergy;
+    private int maxHitPoint;
     private SpriteRenderer sr;
     private bool isSpriteToRender = false;
-    public static Player instance;
+    private static Player instance;
+
+    public static Player Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+
+    public string ShipName
+    {
+        get
+        {
+            return shipName;
+        }
+    }
+
+    public int HitPoint
+    {
+        get
+        {
+            return hitPoint;
+        }
+    }
+
+    public int MaxHitPoint
+    {
+        get
+        {
+            return maxHitPoint;
+        }
+    }
+
+    public int ShipEnergy
+    {
+        get
+        {
+            return shipEnergy;
+        }
+    }
 
     private void Awake()
     {
@@ -35,8 +75,8 @@ public class Player : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         character = xcharacter;
-        name = character.name;
-        startHitPoint = character.startHitPoint;
+        shipName = character.name;
+        hitPoint = character.startHitPoint;
         maxHitPoint = character.startHitPoint;
         shipEnergy = character.shipEnergy;
         sr.sprite = character.sprite;
