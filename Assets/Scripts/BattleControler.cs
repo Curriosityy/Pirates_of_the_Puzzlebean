@@ -15,6 +15,8 @@ public class BattleControler : MonoBehaviour
     public static bool coIsRunning = false;
     public static bool isMapFull = false;
     private bool cleared = false;
+    private Player player;
+    private Monster monster;
 
     private void Start()
     {
@@ -24,6 +26,8 @@ public class BattleControler : MonoBehaviour
         finded = false;
         board = new GemControler[col, row + 1];
         GenerateBoard();
+        player = Player.Instance;
+        monster = Monster.Instance;
     }
 
     private void GenerateBoard()

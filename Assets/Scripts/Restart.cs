@@ -15,6 +15,10 @@ public class Restart : MonoBehaviour
         {
             Destroy(Player.Instance.gameObject);
         }
+        if (Monster.Instance != null)
+        {
+            Destroy(Monster.Instance.gameObject);
+        }
     }
 
     // Update is called once per frame
