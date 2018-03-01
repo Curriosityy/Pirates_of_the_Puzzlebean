@@ -11,12 +11,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84a586b09b9ed2e4c90951b4ebdde1ef, type: 3}
   m_Name: Enemy2
   m_EditorClassIdentifier: 
-  dmgRange: 
   enemyName: Colombo
-  deff: 8
-  startHP: 83
   enemyLook: {fileID: 21300000, guid: ef743e7e7eaca264f8b73443ce882608, type: 3}
-  attackBuff: 1
-  defBuff: 1
-  attackDebuff: 1
-  defDebuff: 1
+  dmgRange: 0600000010000000
+  startHP: 83
+  deff: 8
+  buff: 1
+  debuff: 1
+  healQuant: 8
+  moveProb:
+  - 0.6
+  - 0.3
+  - 0
+  - 0.05
+  - 0.05

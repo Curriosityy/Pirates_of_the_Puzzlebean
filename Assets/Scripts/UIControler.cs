@@ -14,6 +14,10 @@ public class UIControler : MonoBehaviour
     private void Start()
     {
         player = Player.Instance;
+        if (Monster.Instance != null)
+        {
+            Destroy(Monster.Instance.gameObject);
+        }
         if (player != null)
         {
             Debug.Log(player);

@@ -82,6 +82,13 @@ MonoBehaviour:
   selectedCross: {fileID: 1101808931109540, guid: 928b91346373f004cb7f9c1e97f941f9,
     type: 2}
   mapHolder: {fileID: 0}
+  listOfEnemy:
+  - {fileID: 11400000, guid: 332a0e8948d26324b9c74de865425f1b, type: 2}
+  - {fileID: 11400000, guid: 1505022190cc8eb45a056d9ae36200ce, type: 2}
+  enemyProbability:
+  - 0.5
+  - 0.5
+  monster: {fileID: 1468692747570524, guid: e13f3c568e9fa94458a4e90571f8b389, type: 2}
 --- !u!212 &212697999352432384
 SpriteRenderer:
   m_ObjectHideFlags: 1

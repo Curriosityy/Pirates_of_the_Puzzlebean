@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class BattleControler : MonoBehaviour
 {
     public GameObject[] gems;
+    private int[] matchedGemsCount;
     public int row;
     public int col;
     private GemControler[,] board;
@@ -28,6 +30,7 @@ public class BattleControler : MonoBehaviour
         GenerateBoard();
         player = Player.Instance;
         monster = Monster.Instance;
+        matchedGemsCount = new int[gems.Length];
     }
 
     private void GenerateBoard()
@@ -215,6 +218,12 @@ public class BattleControler : MonoBehaviour
                             board[i2, j2] = temp;
                             GemControler.toSwap.Clear();
                             cleared = false;
+                            player.currShipEnergy -= 1;
+                            if (player.currShipEnergy == 0)
+                            {
+                                monster.MakeAMove();
+                                player.currShipEnergy = player.ShipEnergy;
+                            }
                         }
                     }
                 }
