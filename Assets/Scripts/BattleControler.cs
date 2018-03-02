@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
+using System;
 
 public class BattleControler : MonoBehaviour
 {
     public GameObject[] gems;
-    private int[] matchedGemsCount;
+    private int[] destroyedGemCount;//0-attack 1-heal 2-shield 3-buff 4-gold
     public int row;
     public int col;
     private GemControler[,] board;
@@ -30,7 +31,7 @@ public class BattleControler : MonoBehaviour
         GenerateBoard();
         player = Player.Instance;
         monster = Monster.Instance;
-        matchedGemsCount = new int[gems.Length];
+        destroyedGemCount = new int[gems.Length];
     }
 
     private void GenerateBoard()
@@ -95,13 +96,38 @@ public class BattleControler : MonoBehaviour
             for (int j = 0; j < row; j++)
             {
                 if (board[i, j] != null)
+                {
                     if (board[i, j].matched && !board[i, j].move)
                     {
                         board[i, j].gameObject.SetActive(false);
+                        switch (board[i, j].gameObject.tag)
+                        {
+                            case "gem6":
+                                destroyedGemCount[0] += 1;
+                                break;
+
+                            case "gem3":
+                                destroyedGemCount[1] += 1;
+                                break;
+
+                            case "gem4":
+                                destroyedGemCount[2] += 1;
+                                break;
+
+                            case "gem1":
+                                destroyedGemCount[3] += 1;
+                                break;
+
+                            case "gem2":
+                                destroyedGemCount[4] += 1;
+                                break;
+                        }
                         board[i, j] = null;
                     }
+                }
             }
         }
+        DoAttack();
     }
 
     private void FallGems()
@@ -190,6 +216,39 @@ public class BattleControler : MonoBehaviour
         coIsRunning = false;
     }
 
+    private void DoAttack()
+    {
+        //0-attack 1-heal 2-shield 3-buff 4-gold
+        if (destroyedGemCount[0] > 0)
+        {
+            destroyedGemCount[0] += player.currBuff;
+            int temp = monster.CurrShield;
+            monster.CurrShield -= destroyedGemCount[0];
+            destroyedGemCount[0] -= temp;
+            if (destroyedGemCount[0] > 0)
+            {
+                monster.CurrHp -= destroyedGemCount[0];
+            }
+        }
+        if (destroyedGemCount[1] > 0)
+        {
+            player.HitPoint += destroyedGemCount[1];
+        }
+        if (destroyedGemCount[2] > 0)
+        {
+            player.CurrShield += destroyedGemCount[2] + player.currBuff;
+        }
+        if (destroyedGemCount[3] > 0)
+        {
+            player.currBuff += destroyedGemCount[3] - 2;
+        }
+        if (destroyedGemCount[4] > 0)
+        {
+            player.gold += destroyedGemCount[4] * 10;
+        }
+        Array.Clear(destroyedGemCount, 0, destroyedGemCount.Length);
+    }
+
     private void Update()
     {
         if (!PauseControler.pause)
@@ -200,6 +259,11 @@ public class BattleControler : MonoBehaviour
                 {
                     if (!coIsRunning)
                     {
+                        if (player.currShipEnergy == 0 && cleared)
+                        {
+                            monster.MakeAMove();
+                            player.currShipEnergy = player.ShipEnergy;
+                        }
                         if (!cleared)
                         {
                             StartCoroutine(MatchAndDestroy());
@@ -219,11 +283,6 @@ public class BattleControler : MonoBehaviour
                             GemControler.toSwap.Clear();
                             cleared = false;
                             player.currShipEnergy -= 1;
-                            if (player.currShipEnergy == 0)
-                            {
-                                monster.MakeAMove();
-                                player.currShipEnergy = player.ShipEnergy;
-                            }
                         }
                     }
                 }

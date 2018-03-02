@@ -25,7 +25,14 @@ public class AttackState : State
     override
     public void DoAction()
     {
-        Player.Instance.HitPoint -= moveQuantity;
+        moveQuantity += Monster.Instance.CurrBuff;
+        int temp = Player.Instance.CurrShield;
+        Player.Instance.CurrShield -= moveQuantity;
+        moveQuantity -= temp;
+        if (moveQuantity > 0)
+        {
+            Player.Instance.HitPoint -= moveQuantity;
+        }
     }
 }
 

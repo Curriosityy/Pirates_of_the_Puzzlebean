@@ -63,10 +63,11 @@ public class GuiManager : MonoBehaviour
     {
         if (player != null)
         {
-            if (player.currShipEnergy != int.Parse(energyText.text))
-            {
-                RefreshAll();
-            }
+            /* if (player.currShipEnergy != int.Parse(energyText.text))
+             {
+                 RefreshAll();
+             }*/
+            RefreshAll();
         }
     }
 }

@@ -16,9 +16,26 @@ public class Player : MonoBehaviour
     private static Player instance;
     public int currShipEnergy;
     public int currBuff;
+    public int gold;
 
     public int ShieldMax { get { return shieldMax; } set { shieldMax = value; } }
-    public int CurrShield { get { return currShield; } set { currShield = value; } }
+
+    public int CurrShield
+    {
+        get { return currShield; }
+        set
+        {
+            if (value > 0)
+                currShield = value;
+            else
+                currShield = 0;
+
+            if (shieldMax < CurrShield)
+            {
+                shieldMax = CurrShield;
+            }
+        }
+    }
 
     public static Player Instance
     {
