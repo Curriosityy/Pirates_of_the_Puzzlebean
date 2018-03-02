@@ -5,7 +5,6 @@ using UnityEngine;
 public class GemControler : MonoBehaviour
 {
     public float gemsSpeed;
-    private Collider2D cd;
 
     [HideInInspector]
     public bool move = false;
@@ -28,7 +27,6 @@ public class GemControler : MonoBehaviour
     private void Start()
     {
         //rb = gameObject.GetComponent<Rigidbody2D>();
-        cd = gameObject.GetComponent<Collider2D>();
         reached = true;
         ps = gameObject.GetComponent<ParticleSystem>();
         ps.Stop();
@@ -94,6 +92,7 @@ public class GemControler : MonoBehaviour
                 list.AddRange(horiList);
             if (list.Count >= 3)
             {
+                BattleControler.finded = true;
                 foreach (GameObject g in list)
                 {
                     g.GetComponent<GemControler>().matched = true;
@@ -153,32 +152,33 @@ public class GemControler : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (toSwap.Count < 2 && anyCoIsRun.Count == 0 && BattleControler.isMapFull)
-        {
-            if (!toSwap.Contains(this))
+        if (!PauseControler.pause)
+            if (toSwap.Count < 2 && anyCoIsRun.Count == 0 && BattleControler.isMapFull && !BattleControler.coIsRunning)
             {
-                if (toSwap.Count == 1)
+                if (!toSwap.Contains(this))
                 {
-                    for (int i = 0; i < 4; i++)
+                    if (toSwap.Count == 1)
                     {
-                        if (toSwap[0].neighbors[i] == gameObject)
+                        for (int i = 0; i < 4; i++)
                         {
-                            toSwap.Add(this);
-                            selected = true;
+                            if (toSwap[0].neighbors[i] == gameObject)
+                            {
+                                toSwap.Add(this);
+                                selected = true;
+                            }
                         }
+                    }
+                    else
+                    {
+                        toSwap.Add(this);
+                        selected = true;
                     }
                 }
                 else
                 {
-                    toSwap.Add(this);
-                    selected = true;
+                    toSwap.Remove(this);
+                    selected = false;
                 }
             }
-            else
-            {
-                toSwap.Remove(this);
-                selected = false;
-            }
-        }
     }
 }
