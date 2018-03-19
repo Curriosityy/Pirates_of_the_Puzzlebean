@@ -21,6 +21,11 @@ public class Neighbor : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        listNeig.Remove(other.gameObject);
+    }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (!collision.isTrigger && transform.parent.GetInstanceID() != collision.transform.GetInstanceID())

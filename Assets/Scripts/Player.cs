@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     private static Player instance;
     public int currShipEnergy;
     public int currBuff;
-    public int gold;
+    public int gold = 150;
 
     public int ShieldMax { get { return shieldMax; } set { shieldMax = value; } }
 
@@ -65,10 +65,12 @@ public class Player : MonoBehaviour
             {
                 hitPoint = value;
             }
-            if (value > maxHitPoint)
+            else
+            if (value >= maxHitPoint)
             {
                 hitPoint = maxHitPoint;
             }
+            else
             if (value <= 0)
             {
                 hitPoint = 0;
@@ -103,11 +105,6 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-    }
-
-    // Use this for initialization
-    private void Start()
-    {
         if (instance == null)
         {
             instance = this;
@@ -116,6 +113,11 @@ public class Player : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    // Use this for initialization
+    private void Start()
+    {
     }
 
     public void Initialize(Character xcharacter)

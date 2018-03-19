@@ -11,6 +11,12 @@ TagManager:
   - gem4
   - gem5
   - gem6
+  - boss
+  - elite
+  - home
+  - normal
+  - rest
+  - shop
   layers:
   - Default
   - TransparentFX

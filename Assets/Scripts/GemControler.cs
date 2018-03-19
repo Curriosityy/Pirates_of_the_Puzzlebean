@@ -5,6 +5,7 @@ using UnityEngine;
 public class GemControler : MonoBehaviour
 {
     public float gemsSpeed;
+    private float tempSpeed;
 
     [HideInInspector]
     public bool move = false;
@@ -27,6 +28,7 @@ public class GemControler : MonoBehaviour
     private void Start()
     {
         //rb = gameObject.GetComponent<Rigidbody2D>();
+        tempSpeed = gemsSpeed;
         reached = true;
         ps = gameObject.GetComponent<ParticleSystem>();
         ps.Stop();
@@ -36,6 +38,14 @@ public class GemControler : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (BattleControler.battleState == BattleState.creatingMap)
+        {
+            gemsSpeed = 10000;
+        }
+        else
+        {
+            gemsSpeed = tempSpeed;
+        }
         GetNeighbors();
         if (selected || matched)
         {
@@ -152,7 +162,8 @@ public class GemControler : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!PauseControler.pause)
+        if (BattleControler.battleState == BattleState.battle)
+        {
             if (toSwap.Count < 2 && anyCoIsRun.Count == 0 && BattleControler.isMapFull && !BattleControler.coIsRunning)
             {
                 if (!toSwap.Contains(this))
@@ -180,5 +191,6 @@ public class GemControler : MonoBehaviour
                     selected = false;
                 }
             }
+        }
     }
 }

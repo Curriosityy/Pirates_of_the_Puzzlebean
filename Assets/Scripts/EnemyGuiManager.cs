@@ -61,18 +61,6 @@ public class EnemyGuiManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (intenceImage.sprite != monster.move.spriteOfMove)
-        {
-            Refresh();
-        }
-        else
-        if (monster.CurrHp != hpSliderArea.value)
-        {
-            Refresh();
-        }
-        else if (monster.CurrShield != shieldSlider.value)
-        {
-            Refresh();
-        }
+        Refresh();
     }
 }

@@ -9,6 +9,7 @@ public class UIControler : MonoBehaviour
     public Text playerName;
     public Text Hp;
     public Text energy;
+    public Text gold;
 
     // Use this for initialization
     private void Start()
@@ -20,15 +21,21 @@ public class UIControler : MonoBehaviour
         }
         if (player != null)
         {
-            Debug.Log(player);
             playerName.text = "You play as: " + player.ShipName;
-            Hp.text = "HP: " + player.HitPoint + "/" + player.MaxHitPoint;
-            energy.text = "Ship energy: " + player.ShipEnergy.ToString();
+            RefreshUI();
         }
+    }
+
+    private void RefreshUI()
+    {
+        Hp.text = "HP: " + player.HitPoint + "/" + player.MaxHitPoint;
+        energy.text = "Ship energy: " + player.ShipEnergy.ToString();
+        gold.text = "Gold:" + player.gold;
     }
 
     // Update is called once per frame
     private void Update()
     {
+        RefreshUI();
     }
 }
