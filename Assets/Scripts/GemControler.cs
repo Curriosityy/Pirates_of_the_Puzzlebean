@@ -164,6 +164,7 @@ public class GemControler : MonoBehaviour
     {
         if (BattleControler.battleState == BattleState.battle)
         {
+            GetNeighbors();
             if (toSwap.Count < 2 && anyCoIsRun.Count == 0 && BattleControler.isMapFull && !BattleControler.coIsRunning)
             {
                 if (!toSwap.Contains(this))

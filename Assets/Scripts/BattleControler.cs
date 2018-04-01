@@ -46,6 +46,7 @@ public class BattleControler : MonoBehaviour
         mapControler = GameObject.Find("MapControler").GetComponent<MapControler>();
         playerImageTransform = GameObject.Find("PlayerImage").transform;
         enemyImageTransform = GameObject.Find("EnemyImage").transform;
+        player.inventory.ForEach(item => { item.DoOnBattleStart(); });
     }
 
     private void GenerateBoard()
@@ -359,6 +360,7 @@ public class BattleControler : MonoBehaviour
                         {
                             moveTwoGems();
                             player.currShipEnergy -= 1;
+                            player.inventory.ForEach(item => { item.DoOnEveryMove(); });
                         }
                     }
                 }

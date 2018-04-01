@@ -50,6 +50,7 @@ public class PauseControler : MonoBehaviour
         if (BattleControler.battleState == BattleState.win)
         {
             winScreen.SetActive(true);
+            Player.Instance.inventory.ForEach(item => { item.DoOnBattleEnd(); });
             if (Input.anyKey)
             {
                 MapControler mapControler = GameObject.FindObjectOfType<MapControler>();

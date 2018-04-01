@@ -1,0 +1,116 @@
+{
+  "temp": [
+    {
+      "id": 1,
+      "description": "Leczy ciê o 8hp na koniec walki",
+      "rarity": 0,
+      "name": "Purple apple",
+      "spritePath": "/Sprites/nazwa"
+    },
+    {
+      "id": 2,
+      "description": "na koniec ruchu zadaje 1 dmg dla przeciwnika",
+      "rarity": 0,
+      "name": "Magic cannonball",
+      "spritePath": "/Sprites/nazwa"
+    },
+    {
+      "id": 3,
+      "description": "Po podniesieniu dodaj 600 z³ota",
+      "rarity": 0,
+      "name": "skrzynia z³ota",
+      "spritePath": "/Sprites/nazwa"
+    },
+    {
+      "id": 4,
+      "description": "na koniec ruchu dodaje 2 armora",
+      "rarity": 0,
+      "name": "Magic shield",
+      "spritePath": "/Sprites/nazwa"
+    },
+    {
+      "id": 5,
+      "description": "Zaczynasz walkê z 1 dodatkowym ruchem",
+      "rarity": 1,
+      "name": "Magic sail",
+      "spritePath": "/Sprites/nazwa"
+    },
+    {
+      "id": 6,
+      "description": "Po podniesienu leczy ciê o 30hp",
+      "rarity": 1,
+      "name": "Kebab",
+      "spritePath": "/Sprites/nazwa"
+    },
+    {
+      "id": 7,
+      "description": "Dostajesz +1 buffa na start walki",
+      "rarity": 1,
+      "name": "Wojaczek",
+      "spritePath": "/Sprites/nazwa"
+    },
+    {
+      "id": 8,
+      "description": "Zaczynasz walkê z 10 armora",
+      "rarity": 2,
+      "name": "Super body",
+      "spritePath": "/Sprites/nazwa"
+    },
+    {
+      "id": 9,
+      "description": "Zwiêksz maksymalne hp o 15",
+      "rarity": 2,
+      "name": "Super kebab",
+      "spritePath": "/Sprites/nazwa"
+    },
+    {
+      "id": 10,
+      "description": "zwiêksza iloœæ pieniêdzy otrzymywanych z potworów",
+      "rarity": 1,
+      "name": "Sakwa",
+      "spritePath": "/Sprites/nazwa"
+    },
+    {
+      "id": 11,
+      "description": "co 6 ruchów dostajesz 1 dodatkowy ruch",
+      "rarity": 2,
+      "name": "Monsoon",
+      "spritePath": "/Sprites/nazwa"
+    },
+    {
+      "id": 12,
+      "description": "co 8 ruchów buff +1",
+      "rarity": 2,
+      "name": "Dzik",
+      "spritePath": "/Sprites/nazwa"
+    },
+    {
+      "id": 13,
+      "description": "co 8 ruchów ulecz siê o 6",
+      "rarity": 2,
+      "name": "Per³a export",
+      "spritePath": "/Sprites/nazwa"
+    },
+    {
+      "id": 14,
+      "description": "na koniec walki ulecz o 20hp",
+      "rarity": 2,
+      "name": "golden apple",
+      "spritePath": "/Sprites/nazwa"
+    },
+    {
+      "id": 15,
+      "description": "po podniesieniu dodaj 50hp",
+      "rarity": 3,
+      "name": "doner kebab",
+      "spritePath": "/Sprites/nazwa"
+    },
+    {
+      "id": 16,
+      "description": "dodaj 1 do maksymalnej liczy ruchów",
+      "rarity": 3,
+      "name": "halny",
+      "spritePath": "/Sprites/nazwa"
+    }
+  ]
+}

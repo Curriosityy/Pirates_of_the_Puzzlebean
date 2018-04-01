@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     public int currShipEnergy;
     public int currBuff;
     public int gold = 150;
+    public List<Item> inventory = new List<Item>();
 
     public int ShieldMax { get { return shieldMax; } set { shieldMax = value; } }
 
@@ -84,6 +85,11 @@ public class Player : MonoBehaviour
         {
             return maxHitPoint;
         }
+        set
+        {
+            maxHitPoint += value;
+            hitPoint += value;
+        }
     }
 
     public int ShipEnergy
@@ -91,6 +97,10 @@ public class Player : MonoBehaviour
         get
         {
             return shipEnergy;
+        }
+        set
+        {
+            shipEnergy += value;
         }
     }
 
@@ -118,6 +128,12 @@ public class Player : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
+    }
+
+    public void AddItemToInventort(Item item)
+    {
+        inventory.Add(item);
+        item.DoOnPickUp();
     }
 
     public void Initialize(Character xcharacter)
