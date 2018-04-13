@@ -77,6 +77,7 @@ public class Item
     public Rarity rarity;
     public string name;
     public string spritePath;
+    public int tick = -1;
 
     public Item()
     {
@@ -230,10 +231,9 @@ public class Purse : Item
 
 public class Monsoon : Item
 {
-    private int tick = 0;
-
     public Monsoon(Item item) : base(item)
     {
+        tick = 0;
     }
 
     public override void DoOnEveryMove()
@@ -249,10 +249,9 @@ public class Monsoon : Item
 
 public class Dzik : Item
 {
-    private int tick = 0;
-
     public Dzik(Item item) : base(item)
     {
+        tick = 0;
     }
 
     public override void DoOnEveryMove()
@@ -268,10 +267,9 @@ public class Dzik : Item
 
 public class PerlaExport : Item
 {
-    private int tick = 0;
-
     public PerlaExport(Item item) : base(item)
     {
+        tick = 0;
     }
 
     public override void DoOnEveryMove()
@@ -287,8 +285,6 @@ public class PerlaExport : Item
 
 public class GoldenApple : Item
 {
-    private int tick = 0;
-
     public GoldenApple(Item item) : base(item)
     {
     }
@@ -301,8 +297,6 @@ public class GoldenApple : Item
 
 public class DonerKebab : Item
 {
-    private int tick = 0;
-
     public DonerKebab(Item item) : base(item)
     {
     }
@@ -315,8 +309,6 @@ public class DonerKebab : Item
 
 public class Halny : Item
 {
-    private int tick = 0;
-
     public Halny(Item item) : base(item)
     {
     }
