@@ -25,9 +25,37 @@ public class BattleControler : MonoBehaviour
     private Transform playerImageTransform;
     private Transform enemyImageTransform;
     public static int goldLoot = 0;
+    public static Item lootItem = null;
+
+    private void SetNeightbours()
+    {
+        for (int i = 0; i < col; i++)
+        {
+            for (int j = 0; j < row; j++)
+            {
+                if (i != 0)
+                {
+                    board[i, j].neighbors[0] = board[i - 1, j].gameObject;
+                }
+                if (j != 0)
+                {
+                    board[i, j].neighbors[3] = board[i, j - 1].gameObject;
+                }
+                if (i != col - 1)
+                {
+                    board[i, j].neighbors[2] = board[i + 1, j].gameObject;
+                }
+                if (j != row - 1)
+                {
+                    board[i, j].neighbors[1] = board[i, j + 1].gameObject;
+                }
+            }
+        }
+    }
 
     private void Start()
     {
+        lootItem = null;
         goldLoot = 0;
         battleState = BattleState.creatingMap;
         coIsRunning = false;
@@ -60,6 +88,7 @@ public class BattleControler : MonoBehaviour
                 GenerateGem(i, j, 0);
             }
         }
+        SetNeightbours();
     }
 
     private int randomizeGem()
@@ -93,13 +122,13 @@ public class BattleControler : MonoBehaviour
             {
                 if (board[i, j] != null)
                 {
-                    checkForMatch(board[i, j]);
+                    CheckForMatch(board[i, j]);
                 }
             }
         }
     }
 
-    private void checkForMatch(GemControler xgemControler)
+    private void CheckForMatch(GemControler xgemControler)
     {
         xgemControler.SearchForMatch();
     }
@@ -216,7 +245,7 @@ public class BattleControler : MonoBehaviour
     private IEnumerator MatchAndDestroy()
     {
         coIsRunning = true;
-        yield return new WaitForFixedUpdate();
+        yield return new WaitForEndOfFrame();
         CheckForMatch();
         if (finded)
         {
@@ -313,6 +342,7 @@ public class BattleControler : MonoBehaviour
             {
                 if (IsMapFull())
                 {
+                    SetNeightbours();
                     if (!coIsRunning)
                     {
                         if (cleared)
@@ -340,6 +370,7 @@ public class BattleControler : MonoBehaviour
             {
                 if (IsMapFull())
                 {
+                    SetNeightbours();
                     if (!coIsRunning)
                     {
                         if (player.currShipEnergy == 0 && cleared)

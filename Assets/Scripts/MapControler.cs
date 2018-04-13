@@ -101,6 +101,7 @@ public class MapControler : MonoBehaviour
                         else
                         {
                             newPoint = new Point(randAPointType());
+                            //newPoint = new Point(pointType[2]);
                         }
                         levels[i].GetPoints()[levels[i].GetPoints().Count - 1].AddConnectionBetween(newPoint);
                         levels[i + 1].addPointToLevel(newPoint);

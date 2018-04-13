@@ -1,19 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PauseControler : MonoBehaviour
 {
     public static bool pause = false;
-
+    private static bool itemOnce = true;
     public GameObject pauseMenuUI;
     public GameObject loadMap;
     public GameObject winScreen;
     public GameObject loseScreen;
+    public GameObject lootSprite;
     private float ticker = 0;
+    public Text lootText;
 
     private void Start()
     {
+        itemOnce = true;
         loadMap.SetActive(true);
         pause = false;
         Time.timeScale = 1;
@@ -29,7 +33,6 @@ public class PauseControler : MonoBehaviour
         else
         {
             ticker += Time.deltaTime;
-            Debug.Log(ticker);
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -50,7 +53,22 @@ public class PauseControler : MonoBehaviour
         if (BattleControler.battleState == BattleState.win)
         {
             winScreen.SetActive(true);
-            Player.Instance.inventory.ForEach(item => { item.DoOnBattleEnd(); });
+            if (itemOnce)
+            {
+                Player.Instance.inventory.ForEach(item => { item.DoOnBattleEnd(); });
+                lootText.text = BattleControler.goldLoot.ToString();
+                if (BattleControler.lootItem != null)
+                {
+                    lootSprite.GetComponent<Image>().sprite = Resources.Load<Sprite>(BattleControler.lootItem.spritePath);
+                    lootSprite.SetActive(true);
+                }
+                else
+                {
+                    lootSprite.SetActive(false);
+                }
+                itemOnce = false;
+            }
+
             if (Input.anyKey)
             {
                 MapControler mapControler = GameObject.FindObjectOfType<MapControler>();

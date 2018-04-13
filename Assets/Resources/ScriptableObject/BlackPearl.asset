@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e99223e380bd1a140a88e37cd5c30556, type: 3}
   m_Name: BlackPearl
   m_EditorClassIdentifier: 
-  name: Black Pearl
   startHitPoint: 80
+  ItemID: 7
   shipEnergy: 4
   sprite: {fileID: 21300000, guid: d9dd5a01ccae11041aaeb03ec8f4c098, type: 3}

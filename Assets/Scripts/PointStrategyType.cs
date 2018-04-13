@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
@@ -37,6 +38,23 @@ public class ElitePoint : IPointStrategyType
         int loot = Random.Range(60, 160);
         BattleControler.goldLoot = loot;
         Player.Instance.gold += loot;
+        Item randomedItem;
+        List<Item> itemToRandom = new List<Item>();
+        JsonData items = GameObject.FindObjectOfType<JsonData>();
+        items.itemsValue.ForEach(item =>
+        {
+            if (!Player.Instance.inventory.Contains(item))
+            {
+                itemToRandom.Add(item);
+            }
+        });
+        if (itemToRandom.Count > 0)
+        {
+            int rand = Random.Range(0, itemToRandom.Count);
+            randomedItem = itemToRandom[rand];
+            Player.Instance.AddItemToInventort(randomedItem);
+            BattleControler.lootItem = randomedItem;
+        }
     }
 
     void IPointStrategyType.DoWhenClicked()
@@ -58,7 +76,7 @@ public class ShopPoint : IPointStrategyType
 
     void IPointStrategyType.DoWhenClicked()
     {
-        Debug.Log("Sklep");
+        SceneManager.LoadScene(3);
     }
 }
 

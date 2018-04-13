@@ -9,6 +9,7 @@ public class PointControler : MonoBehaviour
     private MapControler mapControler;
     public MapControler.Point thisPoint;
     private GameObject visited;
+    private MapPauseControler pauseControler;
 
     // Use this for initialization
     private void Start()
@@ -49,15 +50,23 @@ public class PointControler : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (mapControler.pointOfStaying.IsConnectedTo(thisPoint))
+        if (pauseControler == null)
         {
-            mapControler.currLevel += 1;
-            mapControler.pointToGo = thisPoint;
-            pst.DoWhenClicked();
-            if (tag == "shop" || tag == "rest")
+            pauseControler = Transform.FindObjectOfType<MapPauseControler>();
+        }
+
+        if (pauseControler.mapState == MapPauseControler.MapState.map)
+        {
+            if (mapControler.pointOfStaying.IsConnectedTo(thisPoint))
             {
-                mapControler.pointOfStaying = mapControler.pointToGo;
-                isVisited = true;
+                mapControler.currLevel += 1;
+                mapControler.pointToGo = thisPoint;
+                pst.DoWhenClicked();
+                if (tag == "shop" || tag == "rest")
+                {
+                    mapControler.pointOfStaying = mapControler.pointToGo;
+                    isVisited = true;
+                }
             }
         }
     }

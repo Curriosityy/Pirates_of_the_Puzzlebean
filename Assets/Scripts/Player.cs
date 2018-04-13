@@ -16,8 +16,9 @@ public class Player : MonoBehaviour
     private static Player instance;
     public int currShipEnergy;
     public int currBuff;
-    public int gold = 150;
+    public int gold = 800;
     public List<Item> inventory = new List<Item>();
+    private JsonData itemBase;
 
     public int ShieldMax { get { return shieldMax; } set { shieldMax = value; } }
 
@@ -88,7 +89,7 @@ public class Player : MonoBehaviour
         set
         {
             maxHitPoint += value;
-            hitPoint += value;
+            HitPoint += value;
         }
     }
 
@@ -100,7 +101,7 @@ public class Player : MonoBehaviour
         }
         set
         {
-            shipEnergy += value;
+            shipEnergy = value;
         }
     }
 
@@ -128,6 +129,8 @@ public class Player : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
+        itemBase = GameObject.FindObjectOfType<JsonData>();
+        AddItemToInventort(itemBase.items[character.ItemID]);
     }
 
     public void AddItemToInventort(Item item)

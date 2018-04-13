@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e99223e380bd1a140a88e37cd5c30556, type: 3}
   m_Name: WhitePearl
   m_EditorClassIdentifier: 
-  name: White Pearl
   startHitPoint: 120
+  ItemID: 1
   shipEnergy: 3
   sprite: {fileID: 21300000, guid: 37c4e4246b937d94c915b355c1a8554e, type: 3}

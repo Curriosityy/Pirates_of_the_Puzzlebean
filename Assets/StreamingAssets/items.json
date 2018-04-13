@@ -1,116 +1,116 @@
-{
+ï»¿{
   "temp": [
     {
       "id": 1,
-      "description": "Leczy ciê o 8hp na koniec walki",
+      "description": "Leczy ciÄ™ o 8hp na koniec walki",
       "rarity": 0,
       "name": "Purple apple",
-      "spritePath": "/Sprites/nazwa"
+      "spritePath": "Sprites/purpleApple"
     },
     {
       "id": 2,
       "description": "na koniec ruchu zadaje 1 dmg dla przeciwnika",
       "rarity": 0,
       "name": "Magic cannonball",
-      "spritePath": "/Sprites/nazwa"
+      "spritePath": "Sprites/magicBall"
     },
     {
       "id": 3,
-      "description": "Po podniesieniu dodaj 600 z³ota",
+      "description": "Po podniesieniu dodaj 600 zÅ‚ota",
       "rarity": 0,
-      "name": "skrzynia z³ota",
-      "spritePath": "/Sprites/nazwa"
+      "name": "skrzynia zÅ‚ota",
+      "spritePath": "Sprites/goldBox"
     },
     {
       "id": 4,
       "description": "na koniec ruchu dodaje 2 armora",
       "rarity": 0,
       "name": "Magic shield",
-      "spritePath": "/Sprites/nazwa"
+      "spritePath": "Sprites/magicShield"
     },
     {
       "id": 5,
-      "description": "Zaczynasz walkê z 1 dodatkowym ruchem",
+      "description": "Zaczynasz walkÄ™ z 1 dodatkowym ruchem",
       "rarity": 1,
       "name": "Magic sail",
-      "spritePath": "/Sprites/nazwa"
+      "spritePath": "Sprites/magicSail"
     },
     {
       "id": 6,
-      "description": "Po podniesienu leczy ciê o 30hp",
+      "description": "Po podniesienu leczy ciÄ™ o 30hp",
       "rarity": 1,
       "name": "Kebab",
-      "spritePath": "/Sprites/nazwa"
+      "spritePath": "Sprites/kebab"
     },
     {
       "id": 7,
       "description": "Dostajesz +1 buffa na start walki",
       "rarity": 1,
-      "name": "Wojaczek",
-      "spritePath": "/Sprites/nazwa"
+      "name": "HotDog",
+      "spritePath": "Sprites/hotdog"
     },
     {
       "id": 8,
-      "description": "Zaczynasz walkê z 10 armora",
+      "description": "Zaczynasz walkÄ™ z 10 armora",
       "rarity": 2,
-      "name": "Super body",
-      "spritePath": "/Sprites/nazwa"
+      "name": "Super hull",
+      "spritePath": "Sprites/superHull"
     },
     {
       "id": 9,
-      "description": "Zwiêksz maksymalne hp o 15",
+      "description": "ZwiÄ™ksz maksymalne hp o 15",
       "rarity": 2,
       "name": "Super kebab",
-      "spritePath": "/Sprites/nazwa"
+      "spritePath": "Sprites/superKebab"
     },
     {
       "id": 10,
-      "description": "zwiêksza iloœæ pieniêdzy otrzymywanych z potworów",
+      "description": "zwiÄ™ksza iloÅ›Ä‡ pieniÄ™dzy otrzymywanych z potworÃ³w",
       "rarity": 1,
       "name": "Sakwa",
-      "spritePath": "/Sprites/nazwa"
+      "spritePath": "Sprites/bag"
     },
     {
       "id": 11,
-      "description": "co 6 ruchów dostajesz 1 dodatkowy ruch",
+      "description": "co 6 ruchÃ³w dostajesz 1 dodatkowy ruch",
       "rarity": 2,
       "name": "Monsoon",
-      "spritePath": "/Sprites/nazwa"
+      "spritePath": "Sprites/monsoon"
     },
     {
       "id": 12,
-      "description": "co 8 ruchów buff +1",
+      "description": "co 8 ruchÃ³w buff +1",
       "rarity": 2,
-      "name": "Dzik",
-      "spritePath": "/Sprites/nazwa"
+      "name": "Telescope",
+      "spritePath": "Sprites/telescope"
     },
     {
       "id": 13,
-      "description": "co 8 ruchów ulecz siê o 6",
+      "description": "co 8 ruchÃ³w ulecz siÄ™ o 6",
       "rarity": 2,
-      "name": "Per³a export",
-      "spritePath": "/Sprites/nazwa"
+      "name": "Nurse",
+      "spritePath": "Sprites/nurse"
     },
     {
       "id": 14,
       "description": "na koniec walki ulecz o 20hp",
       "rarity": 2,
       "name": "golden apple",
-      "spritePath": "/Sprites/nazwa"
+      "spritePath": "Sprites/goldenApple"
     },
     {
       "id": 15,
       "description": "po podniesieniu dodaj 50hp",
       "rarity": 3,
       "name": "doner kebab",
-      "spritePath": "/Sprites/nazwa"
+      "spritePath": "Sprites/donerKebab"
     },
     {
       "id": 16,
-      "description": "dodaj 1 do maksymalnej liczy ruchów",
+      "description": "dodaj 1 do maksymalnej liczy ruchÃ³w",
       "rarity": 3,
-      "name": "halny",
-      "spritePath": "/Sprites/nazwa"
+      "name": "oar",
+      "spritePath": "Sprites/oar"
     }
   ]
 }

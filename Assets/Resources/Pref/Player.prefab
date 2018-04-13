@@ -52,6 +52,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 404ded6e2a4b8b8428bbe0d88f691a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currShipEnergy: 0
+  currBuff: 0
+  gold: 150
+  inventory: []
 --- !u!212 &212175124680553154
 SpriteRenderer:
   m_ObjectHideFlags: 1

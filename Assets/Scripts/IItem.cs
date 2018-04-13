@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 [System.Serializable]
 public enum Rarity
@@ -36,10 +34,10 @@ public class Items
                 return new Kebab(item);
 
             case 7:
-                return new Wojak(item);
+                return new HotDog(item);
 
             case 8:
-                return new SuperBody(item);
+                return new SuperHull(item);
 
             case 9:
                 return new SuperKebab(item);
@@ -51,10 +49,10 @@ public class Items
                 return new Monsoon(item);
 
             case 12:
-                return new Dzik(item);
+                return new Telescope(item);
 
             case 13:
-                return new PerlaExport(item);
+                return new Nurse(item);
 
             case 14:
                 return new GoldenApple(item);
@@ -63,7 +61,7 @@ public class Items
                 return new DonerKebab(item);
 
             case 16:
-                return new Halny(item);
+                return new Oar(item);
         }
         return null;
     }
@@ -181,9 +179,9 @@ public class Kebab : Item
     }
 }
 
-public class Wojak : Item
+public class HotDog : Item
 {
-    public Wojak(Item item) : base(item)
+    public HotDog(Item item) : base(item)
     {
     }
 
@@ -193,15 +191,15 @@ public class Wojak : Item
     }
 }
 
-public class SuperBody : Item
+public class SuperHull : Item
 {
-    public SuperBody(Item item) : base(item)
+    public SuperHull(Item item) : base(item)
     {
     }
 
     public override void DoOnBattleStart()
     {
-        Player.Instance.currShipEnergy += 10;
+        Player.Instance.CurrShield += 10;
     }
 }
 
@@ -213,7 +211,7 @@ public class SuperKebab : Item
 
     public override void DoOnPickUp()
     {
-        Player.Instance.MaxHitPoint += 15;
+        Player.Instance.MaxHitPoint = 15;
     }
 }
 
@@ -247,9 +245,9 @@ public class Monsoon : Item
     }
 }
 
-public class Dzik : Item
+public class Telescope : Item
 {
-    public Dzik(Item item) : base(item)
+    public Telescope(Item item) : base(item)
     {
         tick = 0;
     }
@@ -265,9 +263,9 @@ public class Dzik : Item
     }
 }
 
-public class PerlaExport : Item
+public class Nurse : Item
 {
-    public PerlaExport(Item item) : base(item)
+    public Nurse(Item item) : base(item)
     {
         tick = 0;
     }
@@ -303,17 +301,17 @@ public class DonerKebab : Item
 
     public override void DoOnPickUp()
     {
-        Player.Instance.MaxHitPoint += 50;
+        Player.Instance.MaxHitPoint = 50;
     }
 }
 
-public class Halny : Item
+public class Oar : Item
 {
-    public Halny(Item item) : base(item)
+    public Oar(Item item) : base(item)
     {
     }
 
-    public override void DoOnEveryMove()
+    public override void DoOnPickUp()
     {
         Player.Instance.ShipEnergy += 1;
     }
