@@ -1,0 +1,116 @@
+﻿{
+  "temp": [
+    {
+      "id": 1,
+      "description": "Leczy cię o 8hp na koniec walki",
+      "rarity": 0,
+      "name": "Purple apple",
+      "spritePath": "Sprites/purpleApple"
+    },
+    {
+      "id": 2,
+      "description": "na koniec ruchu zadaje 1 dmg dla przeciwnika",
+      "rarity": 0,
+      "name": "Magic cannonball",
+      "spritePath": "Sprites/magicBall"
+    },
+    {
+      "id": 3,
+      "description": "Po podniesieniu dodaj 600 złota",
+      "rarity": 0,
+      "name": "skrzynia złota",
+      "spritePath": "Sprites/goldBox"
+    },
+    {
+      "id": 4,
+      "description": "na koniec ruchu dodaje 2 armora",
+      "rarity": 0,
+      "name": "Magic shield",
+      "spritePath": "Sprites/magicShield"
+    },
+    {
+      "id": 5,
+      "description": "Zaczynasz walkę z 1 dodatkowym ruchem",
+      "rarity": 1,
+      "name": "Magic sail",
+      "spritePath": "Sprites/magicSail"
+    },
+    {
+      "id": 6,
+      "description": "Po podniesienu leczy cię o 30hp",
+      "rarity": 1,
+      "name": "Kebab",
+      "spritePath": "Sprites/kebab"
+    },
+    {
+      "id": 7,
+      "description": "Dostajesz +1 buffa na start walki",
+      "rarity": 1,
+      "name": "HotDog",
+      "spritePath": "Sprites/hotdog"
+    },
+    {
+      "id": 8,
+      "description": "Zaczynasz walkę z 10 armora",
+      "rarity": 2,
+      "name": "Super hull",
+      "spritePath": "Sprites/superHull"
+    },
+    {
+      "id": 9,
+      "description": "Zwiększ maksymalne hp o 15",
+      "rarity": 2,
+      "name": "Super kebab",
+      "spritePath": "Sprites/superKebab"
+    },
+    {
+      "id": 10,
+      "description": "zwiększa ilość pieniędzy otrzymywanych z potworów",
+      "rarity": 1,
+      "name": "Sakwa",
+      "spritePath": "Sprites/bag"
+    },
+    {
+      "id": 11,
+      "description": "co 6 ruchów dostajesz 1 dodatkowy ruch",
+      "rarity": 2,
+      "name": "Monsoon",
+      "spritePath": "Sprites/monsoon"
+    },
+    {
+      "id": 12,
+      "description": "co 8 ruchów buff +1",
+      "rarity": 2,
+      "name": "Telescope",
+      "spritePath": "Sprites/telescope"
+    },
+    {
+      "id": 13,
+      "description": "co 8 ruchów ulecz się o 6",
+      "rarity": 2,
+      "name": "Nurse",
+      "spritePath": "Sprites/nurse"
+    },
+    {
+      "id": 14,
+      "description": "na koniec walki ulecz o 20hp",
+      "rarity": 2,
+      "name": "golden apple",
+      "spritePath": "Sprites/goldenApple"
+    },
+    {
+      "id": 15,
+      "description": "po podniesieniu dodaj 50hp",
+      "rarity": 3,
+      "name": "doner kebab",
+      "spritePath": "Sprites/donerKebab"
+    },
+    {
+      "id": 16,
+      "description": "dodaj 1 do maksymalnej liczy ruchów",
+      "rarity": 3,
+      "name": "oar",
+      "spritePath": "Sprites/oar"
+    }
+  ]
+}

@@ -6,61 +6,18 @@ using Random = UnityEngine.Random;
 public class Monster : MonoBehaviour
 {
     public State move;
+    private MapControler mapControler;
 
     [Tooltip("0-attack,1-shield,2-heal,3-buff,4-debuff")]
     public Sprite[] intenseSprite;//0-attack,1-shield,2-heal,3-buff,4-debuff
 
-    private static Monster instance;
+    private static Monster instance = null;
     private Enemy enemy;
     public int MaxHp;
     private int currHp;
     private int currBuff = 0;
     private int currShield = 0;
     private int maxShield = 0;
-
-    private void RandAState()
-    {
-        float rand = Random.Range(0f, 1f);
-        float sum = 0;
-        int moveNumber = 0;
-        for (int i = 0; i < enemy.moveProb.Length; i++)
-        {
-            sum += enemy.moveProb[i];
-            if (rand <= sum)
-            {
-                moveNumber = i;
-                break;
-            }
-        }
-        switch (moveNumber)
-        {
-            case 0:
-                move = new AttackState(intenseSprite[0], Random.Range(enemy.dmgRange[0], enemy.dmgRange[1]));
-                break;
-
-            case 1:
-                move = new ShieldState(intenseSprite[1], enemy.deff);
-                break;
-
-            case 2:
-                move = new HealState(intenseSprite[2], enemy.healQuant);
-                break;
-
-            case 3:
-                move = new BuffState(intenseSprite[3], enemy.buff);
-                break;
-
-            case 4:
-                move = new DebuffState(intenseSprite[4], enemy.debuff);
-                break;
-        }
-    }
-
-    public void MakeAMove()
-    {
-        move.DoAction();
-        RandAState();
-    }
 
     public int MaxShield { get { return maxShield; } set { maxShield = value; } }
 
@@ -122,34 +79,86 @@ public class Monster : MonoBehaviour
         }
     }
 
+    private void RandAState()
+    {
+        float rand = Random.Range(0f, 1f);
+        float sum = 0;
+        int moveNumber = 0;
+        for (int i = 0; i < enemy.moveProb.Length; i++)
+        {
+            sum += enemy.moveProb[i];
+            if (rand <= sum)
+            {
+                moveNumber = i;
+                break;
+            }
+        }
+        switch (moveNumber)
+        {
+            case 0:
+                int randAttac = Random.Range(enemy.dmgRange[0], enemy.dmgRange[1]);
+                move = new AttackState(intenseSprite[0], randAttac);
+                break;
+
+            case 1:
+                move = new ShieldState(intenseSprite[1], enemy.deff);
+                break;
+
+            case 2:
+                move = new HealState(intenseSprite[2], enemy.healQuant);
+                break;
+
+            case 3:
+                move = new BuffState(intenseSprite[3], enemy.buff);
+                break;
+
+            case 4:
+                move = new DebuffState(intenseSprite[4], enemy.debuff);
+                break;
+        }
+    }
+
+    public void MakeAMove()
+    {
+        move.DoAction();
+        RandAState();
+    }
+
     public void Initialize(Enemy xenemy)
     {
         enemy = xenemy;
         MaxHp = enemy.startHP;
         currHp = MaxHp;
+        RandAState();
     }
 
     // Use this for initialization
     private void Start()
     {
-        if (instance == null)
-        {
-            instance = this;
-            RandAState();
-        }
-        else
-        {
-            Destroy(gameObject.transform);
-        }
+        mapControler = GameObject.Find("MapControler").GetComponent<MapControler>();
     }
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame
     private void Update()
     {
+    }
+
+    public void Kill()
+    {
+        mapControler.pointToGo.GetInstantion().GetComponent<PointControler>().pst.DoOnEnd();
+        Destroy(gameObject);
     }
 }

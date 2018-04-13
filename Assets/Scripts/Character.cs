@@ -8,6 +8,7 @@ public class Character : ScriptableObject
     //public string name;
     public int startHitPoint;
 
+    public int ItemID;
     public int shipEnergy;
     public Sprite sprite;
 }

@@ -19,6 +19,7 @@ public class Restart : MonoBehaviour
         {
             Destroy(Monster.Instance.gameObject);
         }
+        Destroy(GameObject.Find("MapControler"));
     }
 
     // Update is called once per frame

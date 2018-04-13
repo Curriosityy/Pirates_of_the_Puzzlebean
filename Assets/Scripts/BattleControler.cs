@@ -7,6 +7,8 @@ using System;
 
 public class BattleControler : MonoBehaviour
 {
+    public static BattleState battleState;
+    private MapControler mapControler;
     public GameObject[] gems;
     private int[] destroyedGemCount;//0-attack 1-heal 2-shield 3-buff 4-gold
     public int row;
@@ -20,9 +22,42 @@ public class BattleControler : MonoBehaviour
     private bool cleared = false;
     private Player player;
     private Monster monster;
+    private Transform playerImageTransform;
+    private Transform enemyImageTransform;
+    public static int goldLoot = 0;
+    public static Item lootItem = null;
+
+    private void SetNeightbours()
+    {
+        for (int i = 0; i < col; i++)
+        {
+            for (int j = 0; j < row; j++)
+            {
+                if (i != 0)
+                {
+                    board[i, j].neighbors[0] = board[i - 1, j].gameObject;
+                }
+                if (j != 0)
+                {
+                    board[i, j].neighbors[3] = board[i, j - 1].gameObject;
+                }
+                if (i != col - 1)
+                {
+                    board[i, j].neighbors[2] = board[i + 1, j].gameObject;
+                }
+                if (j != row - 1)
+                {
+                    board[i, j].neighbors[1] = board[i, j + 1].gameObject;
+                }
+            }
+        }
+    }
 
     private void Start()
     {
+        lootItem = null;
+        goldLoot = 0;
+        battleState = BattleState.creatingMap;
         coIsRunning = false;
         isMapFull = false;
         cleared = false;
@@ -32,6 +67,14 @@ public class BattleControler : MonoBehaviour
         player = Player.Instance;
         monster = Monster.Instance;
         destroyedGemCount = new int[gems.Length];
+        player.currBuff = 0;
+        player.CurrShield = 0;
+        player.ShieldMax = 0;
+        PopoutCreator.Initialize();
+        mapControler = GameObject.Find("MapControler").GetComponent<MapControler>();
+        playerImageTransform = GameObject.Find("PlayerImage").transform;
+        enemyImageTransform = GameObject.Find("EnemyImage").transform;
+        player.inventory.ForEach(item => { item.DoOnBattleStart(); });
     }
 
     private void GenerateBoard()
@@ -45,6 +88,7 @@ public class BattleControler : MonoBehaviour
                 GenerateGem(i, j, 0);
             }
         }
+        SetNeightbours();
     }
 
     private int randomizeGem()
@@ -78,13 +122,13 @@ public class BattleControler : MonoBehaviour
             {
                 if (board[i, j] != null)
                 {
-                    checkForMatch(board[i, j]);
+                    CheckForMatch(board[i, j]);
                 }
             }
         }
     }
 
-    private void checkForMatch(GemControler xgemControler)
+    private void CheckForMatch(GemControler xgemControler)
     {
         xgemControler.SearchForMatch();
     }
@@ -100,34 +144,36 @@ public class BattleControler : MonoBehaviour
                     if (board[i, j].matched && !board[i, j].move)
                     {
                         board[i, j].gameObject.SetActive(false);
-                        switch (board[i, j].gameObject.tag)
-                        {
-                            case "gem6":
-                                destroyedGemCount[0] += 1;
-                                break;
+                        if (battleState == BattleState.battle)
+                            switch (board[i, j].gameObject.tag)
+                            {
+                                case "gem6":
+                                    destroyedGemCount[0] += 1;
+                                    break;
 
-                            case "gem3":
-                                destroyedGemCount[1] += 1;
-                                break;
+                                case "gem3":
+                                    destroyedGemCount[1] += 1;
+                                    break;
 
-                            case "gem4":
-                                destroyedGemCount[2] += 1;
-                                break;
+                                case "gem4":
+                                    destroyedGemCount[2] += 1;
+                                    break;
 
-                            case "gem1":
-                                destroyedGemCount[3] += 1;
-                                break;
+                                case "gem1":
+                                    destroyedGemCount[3] += 1;
+                                    break;
 
-                            case "gem2":
-                                destroyedGemCount[4] += 1;
-                                break;
-                        }
+                                case "gem2":
+                                    destroyedGemCount[4] += 1;
+                                    break;
+                            }
                         board[i, j] = null;
                     }
                 }
             }
         }
-        DoAttack();
+        if (battleState == BattleState.battle)
+            DoAttack();
     }
 
     private void FallGems()
@@ -199,11 +245,12 @@ public class BattleControler : MonoBehaviour
     private IEnumerator MatchAndDestroy()
     {
         coIsRunning = true;
-        yield return new WaitForFixedUpdate();
+        yield return new WaitForEndOfFrame();
         CheckForMatch();
         if (finded)
         {
-            yield return new WaitForSeconds(.5f);
+            if (battleState == BattleState.battle)
+                yield return new WaitForSeconds(.5f);
             //Debug.Break();
             yield return new WaitForFixedUpdate();
             while (PauseControler.pause)
@@ -218,10 +265,28 @@ public class BattleControler : MonoBehaviour
 
     private void DoAttack()
     {
+        Color c = new Color();
         //0-attack 1-heal 2-shield 3-buff 4-gold
+        if (destroyedGemCount[3] > 0)
+        {
+            ColorUtility.TryParseHtmlString("#FF8E00FF", out c);
+            int value = destroyedGemCount[3] - 2;
+            player.currBuff += value;
+            PopoutCreator.CreatePopoutText("+" + value.ToString(), playerImageTransform, c);
+        }
+        if (destroyedGemCount[4] > 0)
+        {
+            ColorUtility.TryParseHtmlString("#F1FF00FF", out c);
+            int value = destroyedGemCount[4] * 10;
+            player.gold += value;
+            PopoutCreator.CreatePopoutText("+" + value.ToString(), playerImageTransform, c);
+        }
         if (destroyedGemCount[0] > 0)
         {
+            ColorUtility.TryParseHtmlString("#B60101FF", out c);
             destroyedGemCount[0] += player.currBuff;
+            destroyedGemCount[0] = destroyedGemCount[0] >= 0 ? destroyedGemCount[0] : 0;
+            int value = destroyedGemCount[0];
             int temp = monster.CurrShield;
             monster.CurrShield -= destroyedGemCount[0];
             destroyedGemCount[0] -= temp;
@@ -229,39 +294,92 @@ public class BattleControler : MonoBehaviour
             {
                 monster.CurrHp -= destroyedGemCount[0];
             }
+            PopoutCreator.CreatePopoutText("-" + value.ToString(), enemyImageTransform, c);
         }
         if (destroyedGemCount[1] > 0)
         {
-            player.HitPoint += destroyedGemCount[1];
+            ColorUtility.TryParseHtmlString("#00FF00FF", out c);
+            int value = destroyedGemCount[1];
+            player.HitPoint += value;
+            PopoutCreator.CreatePopoutText("+" + value.ToString(), playerImageTransform, c);
         }
         if (destroyedGemCount[2] > 0)
         {
-            player.CurrShield += destroyedGemCount[2] + player.currBuff;
-        }
-        if (destroyedGemCount[3] > 0)
-        {
-            player.currBuff += destroyedGemCount[3] - 2;
-        }
-        if (destroyedGemCount[4] > 0)
-        {
-            player.gold += destroyedGemCount[4] * 10;
+            ColorUtility.TryParseHtmlString("#1697C5FF", out c);
+            int value = destroyedGemCount[2] + player.currBuff;
+            value = value > 0 ? value : 0;
+            player.CurrShield += value;
+            PopoutCreator.CreatePopoutText("+" + value.ToString(), playerImageTransform, c);
         }
         Array.Clear(destroyedGemCount, 0, destroyedGemCount.Length);
+        if (monster.CurrHp <= 0)
+        {
+            battleState = BattleState.win;
+            monster.Kill();
+        }
+    }
+
+    private void moveTwoGems()
+    {
+        int i, j, i2, j2;
+        Vector2 vec = GemControler.toSwap[0].transform.position;
+        StartCoroutine(GemControler.toSwap[0].Move(GemControler.toSwap[1].transform.position));
+        StartCoroutine(GemControler.toSwap[1].Move(vec));
+        getIJ(GemControler.toSwap[0], out i, out j);
+        getIJ(GemControler.toSwap[1], out i2, out j2);
+        GemControler temp = board[i, j];
+        board[i, j] = board[i2, j2];
+        board[i2, j2] = temp;
+        GemControler.toSwap.Clear();
+        cleared = false;
     }
 
     private void Update()
     {
-        if (!PauseControler.pause)
+        if (battleState == BattleState.creatingMap)
         {
             if (GemControler.anyCoIsRun.Count == 0)
             {
                 if (IsMapFull())
                 {
+                    SetNeightbours();
+                    if (!coIsRunning)
+                    {
+                        if (cleared)
+                        {
+                            battleState = BattleState.battle;
+                        }
+                        if (!cleared)
+                        {
+                            StartCoroutine(MatchAndDestroy());
+                            cleared = true;
+                        }
+                    }
+                }
+            }
+            if (!IsMapFull())
+            {
+                FallGems();
+                generateGemOnTop();
+                cleared = false;
+            }
+        }
+        if (battleState == BattleState.battle)
+        {
+            if (GemControler.anyCoIsRun.Count == 0)
+            {
+                if (IsMapFull())
+                {
+                    SetNeightbours();
                     if (!coIsRunning)
                     {
                         if (player.currShipEnergy == 0 && cleared)
                         {
                             monster.MakeAMove();
+                            if (player.HitPoint <= 0)
+                            {
+                                battleState = BattleState.lose;
+                            }
                             player.currShipEnergy = player.ShipEnergy;
                         }
                         if (!cleared)
@@ -271,18 +389,9 @@ public class BattleControler : MonoBehaviour
                         }
                         if (GemControler.toSwap.Count == 2)
                         {
-                            int i, j, i2, j2;
-                            Vector2 vec = GemControler.toSwap[0].transform.position;
-                            StartCoroutine(GemControler.toSwap[0].Move(GemControler.toSwap[1].transform.position));
-                            StartCoroutine(GemControler.toSwap[1].Move(vec));
-                            getIJ(GemControler.toSwap[0], out i, out j);
-                            getIJ(GemControler.toSwap[1], out i2, out j2);
-                            GemControler temp = board[i, j];
-                            board[i, j] = board[i2, j2];
-                            board[i2, j2] = temp;
-                            GemControler.toSwap.Clear();
-                            cleared = false;
+                            moveTwoGems();
                             player.currShipEnergy -= 1;
+                            player.inventory.ForEach(item => { item.DoOnEveryMove(); });
                         }
                     }
                 }
@@ -314,4 +423,9 @@ public class BattleControler : MonoBehaviour
         xj = -1;
         return false;
     }
+}
+
+public enum BattleState
+{
+    battle = 0, pause = 1, win = 2, creatingMap = 3, lose = 4
 }

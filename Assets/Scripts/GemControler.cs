@@ -5,6 +5,7 @@ using UnityEngine;
 public class GemControler : MonoBehaviour
 {
     public float gemsSpeed;
+    private float tempSpeed;
 
     [HideInInspector]
     public bool move = false;
@@ -27,16 +28,28 @@ public class GemControler : MonoBehaviour
     private void Start()
     {
         //rb = gameObject.GetComponent<Rigidbody2D>();
+        tempSpeed = gemsSpeed;
         reached = true;
         ps = gameObject.GetComponent<ParticleSystem>();
         ps.Stop();
-        GetNeighbors();
     }
 
     // Update is called once per frame
     private void Update()
     {
-        GetNeighbors();
+        for (int i = 0; i < 2; i++)
+        {
+            if (neighbors[i] != null)
+                Debug.DrawLine(transform.position, neighbors[i].transform.position, Color.red);
+        }
+        if (BattleControler.battleState == BattleState.creatingMap)
+        {
+            gemsSpeed = 10000;
+        }
+        else
+        {
+            gemsSpeed = tempSpeed;
+        }
         if (selected || matched)
         {
             ps.Play();
@@ -52,15 +65,14 @@ public class GemControler : MonoBehaviour
 
     private void GetNeighbors()
     {
-        neighbors[1] = transform.Find("Up").GetComponent<Neighbor>().neightbor;
-        neighbors[3] = transform.Find("Down").GetComponent<Neighbor>().neightbor;
-        neighbors[0] = transform.Find("Left").GetComponent<Neighbor>().neightbor;
-        neighbors[2] = transform.Find("Right").GetComponent<Neighbor>().neightbor;
+        //neighbors[1] = transform.Find("Up").GetComponent<Neighbor>().neightbor;
+        //neighbors[3] = transform.Find("Down").GetComponent<Neighbor>().neightbor;
+        //neighbors[0] = transform.Find("Left").GetComponent<Neighbor>().neightbor;
+        //neighbors[2] = transform.Find("Right").GetComponent<Neighbor>().neightbor;
     }
 
     public void SearchForMatch()
     {
-        GetNeighbors();
         if (!matched)
         {
             List<GameObject> vertList = new List<GameObject>();
@@ -152,7 +164,8 @@ public class GemControler : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!PauseControler.pause)
+        if (BattleControler.battleState == BattleState.battle)
+        {
             if (toSwap.Count < 2 && anyCoIsRun.Count == 0 && BattleControler.isMapFull && !BattleControler.coIsRunning)
             {
                 if (!toSwap.Contains(this))
@@ -180,5 +193,6 @@ public class GemControler : MonoBehaviour
                     selected = false;
                 }
             }
+        }
     }
 }
