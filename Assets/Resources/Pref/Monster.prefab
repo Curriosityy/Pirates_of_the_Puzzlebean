@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4498459949420756}
   - component: {fileID: 212815106610641958}
   - component: {fileID: 114303721456299558}
+  - component: {fileID: 82865338772679062}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Untagged
@@ -41,6 +42,86 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &82865338772679062
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1468692747570524}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: fb570d6377db30947ad30026800ba656, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.657
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114303721456299558
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,11 +134,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   intenseSprite:
-  - {fileID: 21300000, guid: b47ee7abce455054fbe83ba7ba34f9b8, type: 3}
+  - {fileID: 21300000, guid: f941ab72d8d97734ea3758930341acd2, type: 3}
   - {fileID: 21300000, guid: 5ad61e784dca05c46a835175360e2fc6, type: 3}
-  - {fileID: 21300000, guid: 5305235afa9a71c4481aa293a6b5c32a, type: 3}
-  - {fileID: 21300000, guid: 214800e972bc1434ba6c39d63f1938fe, type: 3}
+  - {fileID: 21300000, guid: fa5e5703191497740a1453b9822e39af, type: 3}
+  - {fileID: 21300000, guid: 981bbd89e87892c42b4d13b8c7ed24b5, type: 3}
   - {fileID: 21300000, guid: 53f692d2d7f696e488d66c405c9f3d99, type: 3}
+  stateClips:
+  - {fileID: 8300000, guid: aa5fdf82614d6f64eaa8d1a8914acd4d, type: 3}
+  - {fileID: 8300000, guid: 2363f24a8ed859a4f875039bb476bd60, type: 3}
+  - {fileID: 8300000, guid: 0455405292befd440bc5647223aa5eb8, type: 3}
+  - {fileID: 8300000, guid: 414cc89bcd16a834a90e177393b38aac, type: 3}
+  - {fileID: 8300000, guid: 9598a06991461cf4b868635ceb879f7c, type: 3}
+  trump: {fileID: 8300000, guid: fb570d6377db30947ad30026800ba656, type: 3}
   MaxHp: 0
 --- !u!212 &212815106610641958
 SpriteRenderer:

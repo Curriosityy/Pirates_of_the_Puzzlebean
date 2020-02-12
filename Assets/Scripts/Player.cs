@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public float timeInGame = 0;
+    public float killedElite = 0;
     private Character character;
     private string shipName;
     private int hitPoint;
@@ -13,12 +15,13 @@ public class Player : MonoBehaviour
     private int currShield = 0;
     private SpriteRenderer sr;
     private bool isSpriteToRender = false;
-    private static Player instance;
+
     public int currShipEnergy;
-    public int currBuff;
+    private int currBuff;
     public int gold = 800;
     public List<Item> inventory = new List<Item>();
     private JsonData itemBase;
+    private static Player instance;
 
     public int ShieldMax { get { return shieldMax; } set { shieldMax = value; } }
 
@@ -35,6 +38,11 @@ public class Player : MonoBehaviour
             if (shieldMax < CurrShield)
             {
                 shieldMax = CurrShield;
+            }
+            if (currShield >= 60)
+            {
+                currShield = 60;
+                shieldMax = 60;
             }
         }
     }
@@ -113,6 +121,23 @@ public class Player : MonoBehaviour
         }
     }
 
+    public int CurrBuff
+    {
+        get
+        {
+            return currBuff;
+        }
+
+        set
+        {
+            currBuff = value;
+            if (currBuff <= -3)
+            {
+                currBuff = -3;
+            }
+        }
+    }
+
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -156,5 +181,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        timeInGame += Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.F10))
+        {
+            Monster.Instance.CurrHp -= 10000;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraControler : MonoBehaviour
 {
@@ -15,19 +16,22 @@ public class CameraControler : MonoBehaviour
 
     private void Update()
     {
-        Vector2 mousPos = Input.mousePosition;
-        if (Vector2.Distance(mousPos, new Vector2(Screen.width, mousPos.y)) < edgeSize)
+        if (SceneManager.GetActiveScene().name == "Map")
         {
-            if (mainCamTransform.position.x < 30f)
+            Vector2 mousPos = Input.mousePosition;
+            if (Vector2.Distance(mousPos, new Vector2(Screen.width, mousPos.y)) < edgeSize)
             {
-                mainCamTransform.position = mainCamTransform.position + (Vector3.right * cameraSpeed * Time.deltaTime);
+                if (mainCamTransform.position.x < 30f)
+                {
+                    mainCamTransform.position = mainCamTransform.position + (Vector3.right * cameraSpeed * Time.deltaTime);
+                }
             }
-        }
-        if (Vector2.Distance(mousPos, new Vector2(0, mousPos.y)) < edgeSize)
-        {
-            if (mainCamTransform.position.x > -1.5f)
+            if (Vector2.Distance(mousPos, new Vector2(0, mousPos.y)) < edgeSize)
             {
-                mainCamTransform.position = mainCamTransform.position + (Vector3.left * cameraSpeed * Time.deltaTime);
+                if (mainCamTransform.position.x > -1.5f)
+                {
+                    mainCamTransform.position = mainCamTransform.position + (Vector3.left * cameraSpeed * Time.deltaTime);
+                }
             }
         }
     }

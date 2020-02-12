@@ -14,7 +14,8 @@ public class PopoutCreator : MonoBehaviour
     public static void Initialize()
     {
         popout = Resources.Load<PopoutControler>("PopOutTextParent");
-        canvas = FindObjectOfType<Canvas>();
+        canvas = GameObject.Find("MainCanvas").GetComponent<Canvas>();
+        //canvas = FindObjectOfType<Canvas>();
     }
 
     public static void CreatePopoutText(string xText, Transform xtransform, Color xColor)

@@ -16,12 +16,15 @@ public class ItemInfoBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public Text destText;
     public GameObject infoPanel;
     public Color[] color;
+    public Font font;
 
     // Use this for initialization
     private void Start()
     {
         nameText.text = itemName;
         destText.text = text;
+        nameText.font = font;
+        destText.font = font;
         nameText.color = color[rare.GetHashCode()];
     }
 

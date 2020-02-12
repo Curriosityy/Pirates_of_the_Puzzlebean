@@ -58,7 +58,7 @@ public class DebuffState : State
     override
     public void DoAction()
     {
-        Player.Instance.currBuff -= moveQuantity;
+        Player.Instance.CurrBuff -= moveQuantity;
     }
 }
 
@@ -84,6 +84,7 @@ public class ShieldState : State
     override
     public void DoAction()
     {
+        moveQuantity += Monster.Instance.CurrBuff;
         Monster.Instance.CurrShield += moveQuantity;
     }
 }

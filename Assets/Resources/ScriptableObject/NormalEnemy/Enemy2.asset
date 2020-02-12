@@ -13,12 +13,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Colombo
   enemyLook: {fileID: 21300000, guid: ef743e7e7eaca264f8b73443ce882608, type: 3}
-  dmgRange: 0f0000001e000000
-  startHP: 83
-  deff: 17
-  buff: 4
-  debuff: 4
-  healQuant: 8
+  dmgRange: 1900000021000000
+  startHP: 108
+  deff: 32
+  buff: 5
+  debuff: 3
+  healQuant: 18
   moveProb:
   - 0.5
   - 0.3

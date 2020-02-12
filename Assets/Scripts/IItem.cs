@@ -187,7 +187,7 @@ public class HotDog : Item
 
     public override void DoOnBattleStart()
     {
-        Player.Instance.currBuff += 1;
+        Player.Instance.CurrBuff += 1;
     }
 }
 
@@ -257,7 +257,7 @@ public class Telescope : Item
         tick += 1;
         if (tick >= 8)
         {
-            Player.Instance.currBuff += 1;
+            Player.Instance.CurrBuff += 1;
             tick = 0;
         }
     }
@@ -273,7 +273,7 @@ public class Nurse : Item
     public override void DoOnEveryMove()
     {
         tick += 1;
-        if (tick >= 8)
+        if (tick >= 6)
         {
             Player.Instance.HitPoint += 6;
             tick = 0;

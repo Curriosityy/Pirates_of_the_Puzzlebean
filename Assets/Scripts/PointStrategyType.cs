@@ -55,6 +55,7 @@ public class ElitePoint : IPointStrategyType
             Player.Instance.AddItemToInventort(randomedItem);
             BattleControler.lootItem = randomedItem;
         }
+        Player.Instance.killedElite += 1;
     }
 
     void IPointStrategyType.DoWhenClicked()
@@ -98,11 +99,35 @@ public class BossPoint : IPointStrategyType
 {
     void IPointStrategyType.DoOnEnd()
     {
-        throw new System.NotImplementedException();
+        int loot = Random.Range(400, 600);
+        BattleControler.goldLoot = loot;
+        Player.Instance.gold += loot;
+        Item randomedItem;
+        List<Item> itemToRandom = new List<Item>();
+        JsonData items = GameObject.FindObjectOfType<JsonData>();
+        items.itemsValue.ForEach(item =>
+        {
+            if (!Player.Instance.inventory.Contains(item))
+            {
+                itemToRandom.Add(item);
+            }
+        });
+        if (itemToRandom.Count > 0)
+        {
+            int rand = Random.Range(0, itemToRandom.Count);
+            randomedItem = itemToRandom[rand];
+            Player.Instance.AddItemToInventort(randomedItem);
+            BattleControler.lootItem = randomedItem;
+        }
     }
 
     void IPointStrategyType.DoWhenClicked()
     {
-        Debug.Log("Boss");
+        PauseControler.bossBattle = true;
+        Enemy[] enemies = Resources.LoadAll<Enemy>("ScriptableObject/BossEnemy/");
+        Monster monster = Resources.Load<Monster>("Pref/Monster");
+        Monster.Instantiate(monster);
+        Monster.Instance.Initialize(enemies[Random.Range(0, enemies.Length)]);
+        SceneManager.LoadScene(2);
     }
 }

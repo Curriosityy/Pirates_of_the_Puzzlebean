@@ -30,7 +30,7 @@ public class shopControler : MonoBehaviour
         List<Item> itemToRandom = new List<Item>();
         items.itemsValue.ForEach(item =>
         {
-            if (!player.inventory.Contains(item))
+            if (!player.inventory.Contains(item) && item.id != 3)
             {
                 itemToRandom.Add(item);
             }
@@ -53,6 +53,7 @@ public class shopControler : MonoBehaviour
                 cost.Add(randomedItems[i].rarity.GetHashCode() * 100 + 100 + Random.Range(100, 200));
                 buttonItems[i].GetComponentInChildren<Text>().text = cost[i] + " gold";
                 buttonItems[i].interactable = true;
+                buttonItems[i].transform.Find("Sold").gameObject.SetActive(false);
                 iib.rare = randomedItems[i].rarity;
             }
             else

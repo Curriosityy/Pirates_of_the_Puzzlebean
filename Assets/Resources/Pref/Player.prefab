@@ -53,8 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currShipEnergy: 0
-  currBuff: 0
-  gold: 150
+  gold: 300
   inventory: []
 --- !u!212 &212175124680553154
 SpriteRenderer:

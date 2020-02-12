@@ -407,7 +407,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637f516bdee71d9489368260c79f5e14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neightbor: {fileID: 0}
 --- !u!114 &114336016366020216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -419,7 +418,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637f516bdee71d9489368260c79f5e14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neightbor: {fileID: 0}
 --- !u!114 &114522557758908158
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -431,7 +429,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637f516bdee71d9489368260c79f5e14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neightbor: {fileID: 0}
 --- !u!114 &114549291993396228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -443,7 +440,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637f516bdee71d9489368260c79f5e14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neightbor: {fileID: 0}
 --- !u!114 &114789038462971470
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -456,6 +452,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gemsSpeed: 12
+  explosionAnimation: {fileID: 95286123478067618, guid: 2121368e11cf5e047b75ca71f671659b,
+    type: 2}
   move: 0
   ps: {fileID: 0}
   matched: 0

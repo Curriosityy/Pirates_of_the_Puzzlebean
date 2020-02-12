@@ -1272,6 +1272,7 @@ MonoBehaviour:
   - {r: 0.24302736, g: 0.4304323, b: 0.99264705, a: 1}
   - {r: 0.772, g: 0.24757244, b: 0.24757244, a: 1}
   - {r: 0.9852941, g: 0.89114845, b: 0.1850559, a: 1}
+  font: {fileID: 12800000, guid: 000e88579e5dab04fb9f966cf9281c80, type: 3}
 --- !u!114 &313785619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1660,7 +1661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Cube
-  text: wylosuj nowe itemki do kupienia
+  text: Draw new items to buy
   rare: 0
   nameText: {fileID: 1577300447}
   destText: {fileID: 1857316617}
@@ -1670,6 +1671,7 @@ MonoBehaviour:
   - {r: 0.24302736, g: 0.4304323, b: 0.99264705, a: 1}
   - {r: 0.772, g: 0.24757244, b: 0.24757244, a: 1}
   - {r: 0.9852941, g: 0.89114845, b: 0.1850559, a: 1}
+  font: {fileID: 12800000, guid: 000e88579e5dab04fb9f966cf9281c80, type: 3}
 --- !u!114 &405329740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1965,8 +1967,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 413c48ab675101c43b5c54032477d406, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: 
-  text: "Zwi\u0119ksza maksymalne hp o 10"
+  itemName: T-Bone steak
+  text: Increase your max hp by 10
   rare: 0
   nameText: {fileID: 1858646099}
   destText: {fileID: 989092971}
@@ -1976,6 +1978,7 @@ MonoBehaviour:
   - {r: 0.24302736, g: 0.4304323, b: 0.99264705, a: 1}
   - {r: 0.772, g: 0.24757244, b: 0.24757244, a: 1}
   - {r: 0.9852941, g: 0.89114845, b: 0.1850559, a: 1}
+  font: {fileID: 12800000, guid: 000e88579e5dab04fb9f966cf9281c80, type: 3}
 --- !u!1 &603951079
 GameObject:
   m_ObjectHideFlags: 0
@@ -2262,6 +2265,7 @@ MonoBehaviour:
   - {r: 0.24302736, g: 0.4304323, b: 0.99264705, a: 1}
   - {r: 0.772, g: 0.24757244, b: 0.24757244, a: 1}
   - {r: 0.9852941, g: 0.89114845, b: 0.1850559, a: 1}
+  font: {fileID: 12800000, guid: 000e88579e5dab04fb9f966cf9281c80, type: 3}
 --- !u!114 &688143819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2609,7 +2613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: First Aid Kit
-  text: "leczy ci\u0119 za 30%hp"
+  text: Heal you for 30%hp
   rare: 0
   nameText: {fileID: 920485351}
   destText: {fileID: 789198699}
@@ -2619,6 +2623,7 @@ MonoBehaviour:
   - {r: 0.24302736, g: 0.4304323, b: 0.99264705, a: 1}
   - {r: 0.772, g: 0.24757244, b: 0.24757244, a: 1}
   - {r: 0.9852941, g: 0.89114845, b: 0.1850559, a: 1}
+  font: {fileID: 12800000, guid: 000e88579e5dab04fb9f966cf9281c80, type: 3}
 --- !u!114 &743794179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3964,6 +3969,7 @@ MonoBehaviour:
   - {r: 0.24302736, g: 0.4304323, b: 0.99264705, a: 1}
   - {r: 0.772, g: 0.24757244, b: 0.24757244, a: 1}
   - {r: 0.9852941, g: 0.89114845, b: 0.1850559, a: 1}
+  font: {fileID: 12800000, guid: 000e88579e5dab04fb9f966cf9281c80, type: 3}
 --- !u!114 &1336484009
 MonoBehaviour:
   m_ObjectHideFlags: 0

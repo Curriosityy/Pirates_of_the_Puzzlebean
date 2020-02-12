@@ -18,6 +18,8 @@ TagManager:
   - rest
   - shop
   - LootText
+  - InfoPanel
+  - PausePanel
   layers:
   - Default
   - TransparentFX

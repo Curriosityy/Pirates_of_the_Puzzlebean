@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 public class MapControler : MonoBehaviour
 {
@@ -20,9 +21,29 @@ public class MapControler : MonoBehaviour
     public GameObject[] pointType;
     public Dictionary<int, Level> levels = new Dictionary<int, Level>();
     public LineRenderer lr;
-    public Point pointOfStaying;
+    private Point pointOfStaying;
     public Point pointToGo;
     public int currLevel;
+    private Point startPoint;
+    public Camera mapCamera;
+
+    public Point PointOfStaying
+    {
+        get
+        {
+            return pointOfStaying;
+        }
+
+        set
+        {
+            if (pointOfStaying != null)
+            {
+                pointOfStaying.GetConnection().ForEach(point => { pointOfStaying.ChangeColorOfConnectionToPoint(point, point == value ? Color.gray : Color.red); });
+            }
+            value.GetConnection().ForEach(point => { value.ChangeColorOfConnectionToPoint(point, Color.green); });
+            pointOfStaying = value;
+        }
+    }
 
     private void Awake()
     {
@@ -66,8 +87,7 @@ public class MapControler : MonoBehaviour
 
     private void AddStartAndEndPoint()
     {
-        Point startPoint = new Point(tStartPoint.gameObject);
-        pointOfStaying = startPoint;
+        startPoint = new Point(tStartPoint.gameObject);
         currLevel = 0;
         startPoint.SetInstantion(tStartPoint.gameObject);
         Point bossPoint = new Point(tEndPoint.gameObject);
@@ -78,9 +98,10 @@ public class MapControler : MonoBehaviour
         bossLevel.addPointToLevel(bossPoint);
         levels.Add(0, startingLevel);
         levels.Add(lvlCount, bossLevel);
+        tEndPoint.GetComponent<PointControler>().thisPoint = bossPoint;
     }
 
-    private void BuildARoutes()
+    private void BuildRoutes()
     {
         float prob = 1f;
         Point newPoint;
@@ -97,6 +118,10 @@ public class MapControler : MonoBehaviour
                         if (i == lvlCount - 2)
                         {
                             newPoint = new Point(pointType[1]);
+                        }
+                        else if (i == 0)
+                        {
+                            newPoint = new Point(pointType[0]);
                         }
                         else
                         {
@@ -143,12 +168,12 @@ public class MapControler : MonoBehaviour
         {
             levels.Add(i, new Level());
         }
-        BuildARoutes();
+        BuildRoutes();
         for (int i = 1; i < lvlCount; i++)
         {
             CreateLevelOnScreen(i);
         }
-
+        Transform instanceOfLine;
         for (int i = 0; i < lvlCount; i++)
         {
             levels[i].GetPoints().ForEach(point =>
@@ -161,17 +186,26 @@ public class MapControler : MonoBehaviour
                     posOfConnPoint.x -= 0.2f;
                     lr.SetPosition(0, posOfpoint);
                     lr.SetPosition(1, posOfConnPoint);
-                    Instantiate(lr.gameObject, lineDumbster);
-
+                    instanceOfLine = Instantiate(lr.gameObject, lineDumbster).transform;
+                    point.AddLineBetweenPoint(connectedPoint, instanceOfLine);
                     //Debug.DrawLine(posOfpoint, posOfConnPoint, Color.green, 100f);
                 });
             });
         }
+        PointOfStaying = startPoint;
     }
 
     // Update is called once per frame
     private void Update()
     {
+        if (SceneManager.GetActiveScene().name == "Map")
+        {
+            mapCamera.gameObject.SetActive(true);
+        }
+        else
+        {
+            mapCamera.gameObject.SetActive(false);
+        }
     }
 
     public class Level
@@ -198,6 +232,18 @@ public class MapControler : MonoBehaviour
         private GameObject pointType;
         private GameObject instantion;
         private List<Point> connectedWitch = new List<Point>();
+        private Dictionary<Point, Transform> lineConnection = new Dictionary<Point, Transform>();
+
+        public void ChangeColorOfConnectionToPoint(Point point, Color color)
+        {
+            lineConnection[point].GetComponent<LineRenderer>().startColor = color;
+            lineConnection[point].GetComponent<LineRenderer>().endColor = color;
+        }
+
+        public void AddLineBetweenPoint(Point point, Transform line)
+        {
+            lineConnection.Add(point, line);
+        }
 
         public Point(GameObject xpointType)
         {

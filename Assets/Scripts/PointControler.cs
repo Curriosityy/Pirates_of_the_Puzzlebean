@@ -10,10 +10,12 @@ public class PointControler : MonoBehaviour
     public MapControler.Point thisPoint;
     private GameObject visited;
     private MapPauseControler pauseControler;
+    private Animation animation;
 
     // Use this for initialization
     private void Start()
     {
+        animation = gameObject.GetComponent<Animation>();
         mapControler = GameObject.Find("MapControler").GetComponent<MapControler>();
         switch (tag)
         {
@@ -48,6 +50,24 @@ public class PointControler : MonoBehaviour
         visited.SetActive(isVisited);
     }
 
+    private void OnMouseOver()
+    {
+        if (mapControler.PointOfStaying.GetConnection().Contains(thisPoint))
+        {
+            if (!animation.isPlaying)
+            {
+                animation.Play();
+            }
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        animation["PointAnimation"].time = 0.0f;
+        animation.Sample();
+        animation.Stop();
+    }
+
     private void OnMouseDown()
     {
         if (pauseControler == null)
@@ -57,14 +77,14 @@ public class PointControler : MonoBehaviour
 
         if (pauseControler.mapState == MapPauseControler.MapState.map)
         {
-            if (mapControler.pointOfStaying.IsConnectedTo(thisPoint))
+            if (mapControler.PointOfStaying.IsConnectedTo(thisPoint))
             {
                 mapControler.currLevel += 1;
                 mapControler.pointToGo = thisPoint;
                 pst.DoWhenClicked();
                 if (tag == "shop" || tag == "rest")
                 {
-                    mapControler.pointOfStaying = mapControler.pointToGo;
+                    mapControler.PointOfStaying = mapControler.pointToGo;
                     isVisited = true;
                 }
             }

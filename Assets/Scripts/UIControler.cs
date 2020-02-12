@@ -29,7 +29,7 @@ public class UIControler : MonoBehaviour
     private void RefreshUI()
     {
         Hp.text = "HP: " + player.HitPoint + "/" + player.MaxHitPoint;
-        energy.text = "Ship energy: " + player.ShipEnergy.ToString();
+        energy.text = "Ship agility: " + player.ShipEnergy.ToString();
         gold.text = "Gold:" + player.gold;
     }
 

@@ -13,7 +13,11 @@ public class PauseControler : MonoBehaviour
     public GameObject loseScreen;
     public GameObject lootSprite;
     private float ticker = 0;
+    private float ticker2 = 0;
     public Text lootText;
+    public GameObject infoButton;
+    public GameObject legend;
+    public static bool bossBattle = false;
 
     private void Start()
     {
@@ -26,9 +30,14 @@ public class PauseControler : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (BattleControler.battleState == BattleState.battle)
+        {
+            legend.SetActive(Input.GetKey(KeyCode.F1));
+        }
         if (BattleControler.battleState != BattleState.creatingMap && ticker >= 2f)
         {
             loadMap.SetActive(false);
+            infoButton.SetActive(true);
         }
         else
         {
@@ -52,38 +61,56 @@ public class PauseControler : MonoBehaviour
         }
         if (BattleControler.battleState == BattleState.win)
         {
-            winScreen.SetActive(true);
-            if (itemOnce)
+            if (ticker2 >= 1.5f)
             {
-                Player.Instance.inventory.ForEach(item => { item.DoOnBattleEnd(); });
-                lootText.text = BattleControler.goldLoot.ToString();
-                if (BattleControler.lootItem != null)
+                winScreen.SetActive(true);
+                if (itemOnce)
                 {
-                    lootSprite.GetComponent<Image>().sprite = Resources.Load<Sprite>(BattleControler.lootItem.spritePath);
-                    lootSprite.SetActive(true);
+                    Player.Instance.inventory.ForEach(item => { item.DoOnBattleEnd(); });
+                    lootText.text = BattleControler.goldLoot.ToString();
+                    if (BattleControler.lootItem != null)
+                    {
+                        lootSprite.GetComponent<Image>().sprite = Resources.Load<Sprite>(BattleControler.lootItem.spritePath);
+                        lootSprite.SetActive(true);
+                    }
+                    else
+                    {
+                        lootSprite.SetActive(false);
+                    }
+                    itemOnce = false;
                 }
-                else
+
+                if (Input.anyKey && !bossBattle)
                 {
-                    lootSprite.SetActive(false);
+                    MapControler mapControler = GameObject.FindObjectOfType<MapControler>();
+                    mapControler.PointOfStaying = mapControler.pointToGo;
+                    mapControler.PointOfStaying.GetInstantion().GetComponent<PointControler>().isVisited = true;
+
+                    OnClickSwapScenes(1);
                 }
-                itemOnce = false;
+                if (Input.anyKey && bossBattle)
+                {
+                    OnClickSwapScenes(4);
+                }
             }
-
-            if (Input.anyKey)
+            else
             {
-                MapControler mapControler = GameObject.FindObjectOfType<MapControler>();
-                mapControler.pointOfStaying = mapControler.pointToGo;
-                mapControler.pointOfStaying.GetInstantion().GetComponent<PointControler>().isVisited = true;
-
-                OnClickSwapScenes(1);
+                ticker2 += Time.deltaTime;
             }
         }
         if (BattleControler.battleState == BattleState.lose)
         {
-            loseScreen.SetActive(true);
-            if (Input.anyKey)
+            if (ticker2 >= 1.5f)
             {
-                OnClickSwapScenes(0);
+                loseScreen.SetActive(true);
+                if (Input.anyKey)
+                {
+                    OnClickSwapScenes(0);
+                }
+            }
+            else
+            {
+                ticker2 += Time.deltaTime;
             }
         }
     }

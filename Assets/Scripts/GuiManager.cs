@@ -14,6 +14,7 @@ public class GuiManager : MonoBehaviour
     public Text shieldText;
     public Text buffText;
     public Image buffImage;
+    public Text goldText;
 
     // Use this for initialization
     private void Start()
@@ -25,6 +26,7 @@ public class GuiManager : MonoBehaviour
             playerImageArea.sprite = player.Sr.sprite;
             playerImageArea.preserveAspect = true;
             playerImageArea.transform.localRotation = Quaternion.Euler(0, 180, 0);
+            goldText.text = player.gold.ToString();
         }
     }
 
@@ -36,11 +38,12 @@ public class GuiManager : MonoBehaviour
         energyText.text = player.currShipEnergy.ToString();
         shieldSlider.maxValue = player.ShieldMax;
         shieldSlider.value = player.CurrShield;
-        buffText.text = player.currBuff.ToString();
+        buffText.text = player.CurrBuff.ToString();
         shieldSlider.maxValue = player.ShieldMax;
         shieldSlider.value = player.CurrShield;
+        goldText.text = player.gold.ToString() + "$";
         shieldText.text = player.CurrShield + "/" + player.ShieldMax;
-        if (player.currBuff == 0)
+        if (player.CurrBuff == 0)
         {
             buffImage.gameObject.SetActive(false);
         }
@@ -48,7 +51,7 @@ public class GuiManager : MonoBehaviour
         {
             buffImage.gameObject.SetActive(true);
         }
-        if (player.currBuff > 0)
+        if (player.CurrBuff > 0)
         {
             buffText.color = Color.green;
         }
